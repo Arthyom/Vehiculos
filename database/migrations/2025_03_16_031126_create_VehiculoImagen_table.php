@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('Vehiculo', function (Blueprint $table) {
-            //
+        Schema::create('VehiculoImagen', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->integer('Vehiculo_Id')->index('vehiculoimagen_vehiculo_fk');
+            $table->integer('Imagen_Id')->index('vehiculoimagen_imagen_fk');
+            $table->dateTime('Created_At');
             $table->dateTime('Updated_At')->nullable();
         });
     }
@@ -22,9 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('Vehiculo', function (Blueprint $table) {
-            //
-            $table->dropColumn('Updated_At');
-        });
+        Schema::dropIfExists('VehiculoImagen');
     }
 };
