@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proveedor;
+use App\Providers\ProveedorProvider;
 use Illuminate\Http\Request;
 
 class ProveedoresController extends Controller
 {
+    public function __construct(protected ProveedorProvider $proveedorProvider) {
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
+        $allProviders = $this->proveedorProvider->index();
+        return view('proveedores.index', compact('allProviders'));
     }
 
     /**
@@ -21,6 +26,7 @@ class ProveedoresController extends Controller
     public function create()
     {
         //
+        return view('proveedores.create');
     }
 
     /**
@@ -29,6 +35,8 @@ class ProveedoresController extends Controller
     public function store(Request $request)
     {
         //
+        $this->proveedorProvider->create(new Proveedor($request->all()));
+        return route('proveedores.index');
     }
 
     /**

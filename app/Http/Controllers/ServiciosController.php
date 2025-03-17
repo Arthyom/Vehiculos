@@ -4,15 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use App\Models\Vehiculo;
+use App\Providers\ProveedorProvider;
+use App\Providers\ServicioProvider;
+use App\Providers\VehiculoProvider;
 use Illuminate\Http\Request;
 
 class ServiciosController extends Controller
 {
+
+    public function __construct(
+        private ServicioProvider $servicioProvider, 
+        private VehiculoProvider $vehiculoProvider, 
+        private ProveedorProvider $proveedorProvider
+        ) {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+       $allServices = $this->servicioProvider->index();
+       return view('servicios.index', compact('allServices'));
     }
 
     /**
@@ -21,6 +34,12 @@ class ServiciosController extends Controller
     public function create()
     {
         //
+        $allProviders = $this->proveedorProvider->index();
+        $allVehicles  = $this->vehiculoProvider->index();
+
+        return view('servicios.create', 
+            compact('allProviders', 'allVehicles')
+        );
     }
 
     /**
@@ -29,6 +48,8 @@ class ServiciosController extends Controller
     public function store(Request $request)
     {
         //
+        $this->servicioProvider->create($request);
+        return redirect( route('servicios.index'));
     }
 
     /**

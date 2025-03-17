@@ -11,7 +11,7 @@ Route::get('/', function () {
 
 
 Route::resources([
-    'Proveedores' => ProveedoresController::class,
-    'Vehiculos' => VehiculosController::class,
-    'Servicios' => ServiciosController::class
+    'proveedores' => ProveedoresController::class,
+    'vehiculos' => VehiculosController::class,
+    'servicios' => ServiciosController::class
 ]);

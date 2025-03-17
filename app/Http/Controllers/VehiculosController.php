@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Imagen;
 use App\Models\Vehiculo;
 use App\Models\VehiculoImagen;
+use App\Providers\ProveedorProvider;
 use App\Providers\ServicioProvider;
+use App\Providers\VehiculoProvider;
 use Carbon\Laravel\ServiceProvider;
 use DB;
 use Doctrine\DBAL\Schema\View;
@@ -18,10 +20,8 @@ class VehiculosController extends Controller
     /**
      * Class constructor.
      */
-    protected ServicioProvider $servicioProvider;
-    public function __construct(ServicioProvider $_servicioProvider)
+    public function __construct(private VehiculoProvider $vehiculoProvider)
     {
-        $this->servicioProvider = $_servicioProvider;
     }
 
 
@@ -31,18 +31,8 @@ class VehiculosController extends Controller
     public function index()
     {
         //
-        $this->servicioProvider->
-        CreateVehiculo(new Vehiculo([
-            'Alias' => 'ejemplo',
-            'Modelo'=> 'ejemplo',
-            'Anio' => 2010,
-            'Kilometraje' => 5555,
-            'Placa' => 'AS$#DS#W',
-            'Marca' => 'Cuyo'
-
-        ]));
         $allVehicles = Vehiculo::all();
-        return View('Vehiculos.index', compact('allVehicles'));
+        return View('vehiculos.index', compact('allVehicles'));
     }
 
     /**
@@ -51,7 +41,7 @@ class VehiculosController extends Controller
     public function create()
     {
         //
-        return View('Vehiculos.create');
+        return View('vehiculos.create');
     }
 
     /**
@@ -61,33 +51,10 @@ class VehiculosController extends Controller
     {
         //
         try {
-            //code...
-            DB::beginTransaction();
-           $newVehiculo = new Vehiculo( $request->all() );
-           $newVehiculo->save();
-
-           foreach ($request->Imagen as $image) {
-               $imageUuid= Str::uuid() . ".{$image->extension()}";
-               $image->move( public_path('files'), $imageUuid);
-
-               $newImage = new Imagen(  );
-               $newImage->Name = $imageUuid;
-               $newImage->save();
-
-               $newVehiculoImagen = new VehiculoImagen(['Imagen_Id' => $newImage->id, 'Vehiculo_Id' => $newVehiculo->id]);
-               $newVehiculoImagen->save();
-            }
-
-    
-    
-    
-           DB::commit();
-    
-           return 'Ok';
+            $this->vehiculoProvider->create($request);
+            return  redirect( route('vehiculos.index') );
         } catch (\Throwable $th) {
-            //throw $th;
             DB::rollBack();
-
             return $th->getMessage();
         }
     

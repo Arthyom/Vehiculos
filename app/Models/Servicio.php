@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
 class Servicio extends Model
 {
 	protected $table = 'Servicio';
-	public $timestamps = false;
+	public $timestamps = true;
 
 	protected $casts = [
 		'Created_At' => 'datetime',
@@ -37,7 +37,6 @@ class Servicio extends Model
 	];
 
 	protected $fillable = [
-		'Created_At',
 		'Vehiculo_Id',
 		'Proveedor_Id',
 		'Kilometraje',

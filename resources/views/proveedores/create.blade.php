@@ -4,33 +4,13 @@
 
 
 <div class="container">
-    <form method="post" action="/Vehiculos" enctype="multipart/form-data" >
+    <form method="post" action="/proveedores" enctype="multipart/form-data" >
         @csrf
+        
         <div class="mb-3 row">
-            <label for="inputName" class="col-4 col-form-label">Marca</label>
+            <label for="inputName" class="col-4 col-form-label">Nombre</label>
             <div class="col-8"            >
-                <input type="text" class="form-control" name="Marca"/>
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="inputName" class="col-4 col-form-label">Modelo</label>
-            <div class="col-8"            >
-                <input type="text" class="form-control" name="Modelo"/>
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="inputName" class="col-4 col-form-label">Año</label>
-            <div class="col-8"            >
-                <input type="number" class="form-control" name="Anio"/>
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="inputName" class="col-4 col-form-label">Placa</label>
-            <div class="col-8"            >
-                <input type="text" class="form-control" name="Placa"/>
+                <input type="text" class="form-control" name="Nombre"/>
             </div>
         </div>
 
@@ -42,11 +22,14 @@
         </div>
 
         <div class="mb-3 row">
-            <label for="inputName" class="col-4 col-form-label">Kilometraje</label>
+            <label for="inputName" class="col-4 col-form-label">Descripcion</label>
             <div class="col-8"            >
-                <input type="number" class="form-control" name="Kilometraje"/>
+                <textarea  class="form-control" name="Descripcion">
+                </textarea>
             </div>
         </div>
+
+       
 
         <div class="mb-3 row">
             <label for="inputName" class="col-4 col-form-label">Imagen</label>

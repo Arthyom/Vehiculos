@@ -6,8 +6,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class Proveedor
@@ -16,7 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $Nombre
  * @property string|null $Alias
  * @property string $Descripcion
- * @property int $Created_At
+ * @property Carbon $Created_At
+ * @property Carbon|null $Updated_At
  * 
  * @property Collection|Servicio[] $servicios
  *
@@ -25,17 +27,17 @@ use Illuminate\Database\Eloquent\Model;
 class Proveedor extends Model
 {
 	protected $table = 'Proveedor';
-	public $timestamps = false;
+	public $timestamps = true;
 
 	protected $casts = [
-		'Created_At' => 'int'
+		'Created_At' => 'datetime',
+		'Updated_At' => 'datetime'
 	];
 
 	protected $fillable = [
 		'Nombre',
 		'Alias',
 		'Descripcion',
-		'Created_At'
 	];
 
 	public function servicios()

@@ -12,8 +12,7 @@
                 <th scope="col">Imagen</th>
                 <th scope="col">Alias</th>
                 <th scope="col">Placa</th>
-                <th scope="col">Marca</th>
-                <th scope="col">Modelo</th>
+                <th scope="col">Nombre</th>
                 <th scope="col">Año</th>
                 <th scope="col">Klometraje</th>
                 <th scope="col">Opciones</th>
@@ -33,8 +32,7 @@
                 </td>
                 <td>{{ $vehicle->Alias }}</td>
                 <td>{{ $vehicle->Placa }}</td>
-                <td>{{ $vehicle->Marca }}</td>
-                <td>{{ $vehicle->Modelo }}</td>
+                <td>{{ $vehicle->Marca }} {{$vehicle->Modelo}}</td>
                 <td>{{ $vehicle->Anio }}</td>
                 <td>{{ $vehicle->Kilometraje }}</td>
                 <td>opciones</td>
