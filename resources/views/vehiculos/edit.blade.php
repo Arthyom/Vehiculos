@@ -1,7 +1,4 @@
 @extends('Layouts.base')
-
 @section('content')
-
-    @include('servicios.data', ['item'=>$servicio]);
-
+    @include('vehiculos.data', ['vehicle'=>$vehiculo])
 @endsection

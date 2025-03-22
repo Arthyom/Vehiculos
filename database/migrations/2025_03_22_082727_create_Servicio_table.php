@@ -18,6 +18,9 @@ return new class extends Migration
             $table->integer('Proveedor_Id')->index('servicio_proveedor_fk');
             $table->unsignedInteger('Kilometraje')->nullable();
             $table->longText('Descripcion')->nullable();
+            $table->dateTime('Updated_At')->nullable();
+            $table->decimal('Total', 10, 0)->nullable();
+            $table->integer('Nota_Id')->nullable()->index('servicio_nota_fk');
         });
     }
 

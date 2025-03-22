@@ -18,7 +18,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $Proveedor_Id
  * @property int|null $Kilometraje
  * @property string|null $Descripcion
+ * @property Carbon|null $Updated_At
+ * @property float|null $Total
+ * @property int|null $Nota_Id
  * 
+ * @property Nota|null $nota
  * @property Proveedor $proveedor
  * @property Vehiculo $vehiculo
  *
@@ -33,15 +37,27 @@ class Servicio extends Model
 		'Created_At' => 'datetime',
 		'Vehiculo_Id' => 'int',
 		'Proveedor_Id' => 'int',
-		'Kilometraje' => 'int'
+		'Kilometraje' => 'int',
+		'Updated_At' => 'datetime',
+		'Total' => 'float',
+		'Nota_Id' => 'int'
 	];
 
 	protected $fillable = [
+		'Created_At',
 		'Vehiculo_Id',
 		'Proveedor_Id',
 		'Kilometraje',
-		'Descripcion'
+		'Descripcion',
+		'Updated_At',
+		'Total',
+		'Nota_Id'
 	];
+
+	public function nota()
+	{
+		return $this->belongsTo(Nota::class, 'Nota_Id');
+	}
 
 	public function proveedor()
 	{

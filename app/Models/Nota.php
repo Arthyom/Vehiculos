@@ -11,23 +11,20 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Proveedor
+ * Class Nota
  * 
  * @property int $id
- * @property string $Nombre
- * @property string|null $Alias
- * @property string $Descripcion
+ * @property string $Name
  * @property Carbon $Created_At
  * @property Carbon|null $Updated_At
- * @property string|null $Direccion
  * 
  * @property Collection|Servicio[] $servicios
  *
  * @package App\Models
  */
-class Proveedor extends Model
+class Nota extends Model
 {
-	protected $table = 'Proveedor';
+	protected $table = 'Nota';
 	public $timestamps = true;
 
 	protected $casts = [
@@ -36,16 +33,13 @@ class Proveedor extends Model
 	];
 
 	protected $fillable = [
-		'Nombre',
-		'Alias',
-		'Descripcion',
+		'Name',
 		'Created_At',
-		'Updated_At',
-		'Direccion'
+		'Updated_At'
 	];
 
 	public function servicios()
 	{
-		return $this->hasMany(Servicio::class, 'Proveedor_Id');
+		return $this->hasMany(Servicio::class, 'Nota_Id');
 	}
 }

@@ -36,9 +36,10 @@ class ServiciosController extends Controller
         //
         $allProviders = $this->proveedorProvider->index();
         $allVehicles  = $this->vehiculoProvider->index();
+        $servicio = new Servicio();
 
         return view('servicios.create', 
-            compact('allProviders', 'allVehicles')
+            compact('allProviders', 'allVehicles', 'servicio' )
         );
     }
 
@@ -58,6 +59,12 @@ class ServiciosController extends Controller
     public function show(Servicio $servicio)
     {
         //
+        $allProviders = $this->proveedorProvider->index();
+        $allVehicles  = $this->vehiculoProvider->index();
+
+        return view('servicios.show', 
+        compact('servicio', 'allProviders', 'allVehicles')
+        );
     }
 
     /**
@@ -66,6 +73,12 @@ class ServiciosController extends Controller
     public function edit(Servicio $servicio)
     {
         //
+        $allProviders = $this->proveedorProvider->index();
+        $allVehicles  = $this->vehiculoProvider->index();
+
+        return view('servicios.edit', 
+        compact('servicio', 'allProviders', 'allVehicles')
+    );
     }
 
     /**

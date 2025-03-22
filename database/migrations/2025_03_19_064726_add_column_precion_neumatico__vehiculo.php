@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('Proveedor', function (Blueprint $table) {
-            //
-            $table->dateTime('Updated_At')->nullable();
+        //
+        Schema::table('Vehiculo', function (Blueprint $table)  {
+           $table->double('PrecionNeumatico'); 
         });
     }
 
@@ -22,9 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('Proveedor', function (Blueprint $table) {
-            $table->dropColumn('Updated_At');
-            //
+        Schema::table('Vehiculo', function (Blueprint $table) {
+           $table->dropColumn('PrecionNeumatico'); 
         });
+        //
     }
 };

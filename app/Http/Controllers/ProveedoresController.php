@@ -6,6 +6,7 @@ use App\Models\Proveedor;
 use App\Providers\ProveedorProvider;
 use Illuminate\Http\Request;
 
+
 class ProveedoresController extends Controller
 {
     public function __construct(protected ProveedorProvider $proveedorProvider) {
@@ -16,6 +17,7 @@ class ProveedoresController extends Controller
     public function index()
     {
         //
+        session()->put(['session'=> 1, 'moresessions' =>2 ]);
         $allProviders = $this->proveedorProvider->index();
         return view('proveedores.index', compact('allProviders'));
     }
@@ -25,8 +27,7 @@ class ProveedoresController extends Controller
      */
     public function create()
     {
-        //
-        return view('proveedores.create');
+        return view('proveedores.create', ['proveedor'=> new Proveedor()]);
     }
 
     /**
@@ -34,7 +35,6 @@ class ProveedoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $this->proveedorProvider->create(new Proveedor($request->all()));
         return route('proveedores.index');
     }
@@ -44,7 +44,7 @@ class ProveedoresController extends Controller
      */
     public function show(Proveedor $proveedor)
     {
-        //
+        return view('proveedores.show', compact(var_name: 'proveedor'));
     }
 
     /**
@@ -53,6 +53,8 @@ class ProveedoresController extends Controller
     public function edit(Proveedor $proveedor)
     {
         //
+        $proveedor = Proveedor::findOrFail($proveedor->id);
+        return view('proveedores.edit', compact('proveedor'));
     }
 
     /**

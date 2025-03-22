@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $Created_At
  * @property string $Marca
  * @property string $Modelo
+ * @property string $TipoNeumatico
+ * @property double $PrecionNeumatico
  * @property int $Anio
  * @property string $Placa
  * @property string|null $Alias
@@ -46,6 +48,8 @@ class Vehiculo extends Model
 		'Anio',
 		'Placa',
 		'Alias',
+		'TipoNeumatico',
+		'PrecionNeumatico',
 		'Kilometraje'
 	];
 

@@ -31,8 +31,10 @@ class VehiculosController extends Controller
     public function index()
     {
         //
+        $sessionState = session()->all();
         $allVehicles = Vehiculo::all();
-        return View('vehiculos.index', compact('allVehicles'));
+        return View('vehiculos.index', 
+        compact('allVehicles', 'sessionState'));
     }
 
     /**
@@ -41,7 +43,8 @@ class VehiculosController extends Controller
     public function create()
     {
         //
-        return View('vehiculos.create');
+        $vehiculo = new Vehiculo();
+        return View('vehiculos.create', compact(['vehiculo']));
     }
 
     /**
@@ -66,6 +69,7 @@ class VehiculosController extends Controller
     public function show(Vehiculo $vehiculo)
     {
         //
+        return view('vehiculos.show', compact('vehiculo'));
     }
 
     /**
@@ -74,6 +78,7 @@ class VehiculosController extends Controller
     public function edit(Vehiculo $vehiculo)
     {
         //
+        return view('vehiculos.edit', compact('vehiculo'));
     }
 
     /**

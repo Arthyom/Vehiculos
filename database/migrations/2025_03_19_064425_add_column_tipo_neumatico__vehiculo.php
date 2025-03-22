@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::table('Servicio', function (Blueprint $table) {
-            //
-            $table->dateTime('Updated_At')->nullable();
+        Schema::table('Vehiculo', function (Blueprint $table) {
+            $table->text('TipoNeumatico')->nullable();
         });
     }
 
@@ -24,9 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::table('Servicio', function (Blueprint $table) {
-            //
-            $table->dropColumn('Updated_At');
+        Schema::table('Vehiculo', function (Blueprint $table) {
+            $table->dropColumn('TipoNeumatico');
         });
     }
 };

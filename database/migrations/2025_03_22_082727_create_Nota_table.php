@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('Proveedor', function (Blueprint $table) {
-            //
-            $table->dateTime('Created_At')->change();
+        Schema::create('Nota', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->string('Name', 100);
+            $table->dateTime('Created_At');
+            $table->dateTime('Updated_At')->nullable();
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('Proveedor', function (Blueprint $table) {
-            //
-            $table->integer('Created_At')->change();
-        });
+        Schema::dropIfExists('Nota');
     }
 };

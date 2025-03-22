@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('Nombre', 50);
             $table->string('Alias', 30)->nullable();
             $table->longText('Descripcion');
-            $table->integer('Created_At');
+            $table->dateTime('Created_At');
+            $table->dateTime('Updated_At')->nullable();
+            $table->string('Direccion', 100)->nullable();
         });
     }
 

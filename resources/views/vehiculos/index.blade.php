@@ -3,6 +3,7 @@
 
 @section('content')
 
+<a  class="btn btn-success" href="{{ route('vehiculos.create') }}">Crear</a>
 
 
 <div class="table-responsive">
@@ -25,9 +26,7 @@
                 
             <tr class="">
                 <td>
-                    @foreach ($vehicle->imagenes as $image )
-                        <img src="{{ asset('files/'.$image->Name) }}" style="max-width: 100px; min-width: 100px;;">
-                    @endforeach
+                        <img src="{{ asset('files/'.$vehicle->imagenes->firstOrFail()->Name) }}" style="max-width: 100px; min-width: 100px;;">
             
                 </td>
                 <td>{{ $vehicle->Alias }}</td>
@@ -35,8 +34,23 @@
                 <td>{{ $vehicle->Marca }} {{$vehicle->Modelo}}</td>
                 <td>{{ $vehicle->Anio }}</td>
                 <td>{{ $vehicle->Kilometraje }}</td>
-                <td>opciones</td>
+                <td>
 
+                    <div class="row" >
+                        <div class="col-4">
+                            <a  class="btn btn-primary" href="{{ route('vehiculos.show', $vehicle->id) }}">Ver</a>
+                        </div>
+
+                        <div class="col-4">
+                            <a  class="btn btn-warning" href="{{ route('vehiculos.edit', $vehicle->id) }}">Editar</a>
+                        </div>
+
+                        <div class="col-4">
+                            <a  class="btn btn-danger" href="">Borrar</a>
+                        </div>
+                    </div>
+                    
+                </td>
             </tr>
             @endforeach
             
