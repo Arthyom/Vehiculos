@@ -6,7 +6,7 @@
     switch ($action) {
         case 'create':
             # code...
-            $action = "$controller/create";
+            $action = "$controller";
             break;
         
         case 'edit':
