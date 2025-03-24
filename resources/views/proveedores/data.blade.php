@@ -1,14 +1,16 @@
 @php
     $action = explode( '@',Route::currentRouteAction())[1];
-    $controller = explode( '.',Route::currentRouteNamed())[0];
+    $controller = explode( '.',Route::currentRouteName())[0];
+    $method = 'post';
 
     switch ($action) {
         case 'create':
-            $action = "/{$controller}}/create";
+            $action = "{$controller}";
             break;
         
         case 'edit':
-            $action = "/{$controller}/{$item->id}/edit";
+            $method = 'PATCH';
+            $action = "{$controller}/{$item->id}";
             break;
 
         case 'show';
@@ -28,6 +30,10 @@
 <div class="container">
     <form method="post" action="/{{$action}}" enctype="multipart/form-data" >
         @csrf
+
+        @if ('PATCH' == $method)
+            @method('PATCH')
+        @endif
         
         <div class="mb-3 row">
             <label for="inputName" class="col-4 col-form-label">Nombre</label>

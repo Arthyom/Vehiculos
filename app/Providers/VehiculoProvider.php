@@ -32,6 +32,13 @@ class VehiculoProvider extends ServiceProvider
         //
     }
 
+    function update(Request $request, Vehiculo $vehiculo) : bool {
+        DB::beginTransaction();
+        $newVehiculo = $vehiculo->update($request->all());
+        DB::commit();
+        
+        return $newVehiculo;
+    }
 
     public function create(Request $request) : Vehiculo {
 

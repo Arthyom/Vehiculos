@@ -87,6 +87,8 @@ class ServiciosController extends Controller
     public function update(Request $request, Servicio $servicio)
     {
         //
+        $this->servicioProvider->update( $request, $servicio);
+        return redirect(route('servicios.index'));
     }
 
     /**

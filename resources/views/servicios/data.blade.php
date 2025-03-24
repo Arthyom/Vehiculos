@@ -1,16 +1,17 @@
 @php
     $action = explode( '@',Route::currentRouteAction())[1];
-    $controller = explode( '.', Route::currentRouteName())[0];
+    $controller = explode( '.', string: Route::currentRouteName())[0];
+    $method = 'post';
 
-     (var_dump( Route::currentRouteAction()));
 
     switch ($action) {
         case 'create':
-            $action = "/{$controller}/create";
+            $action = "{$controller}";
             break;
         
         case 'edit':
-            $action = "/{$controller}/{$item->id}/edit";
+            $method = 'PATCH';
+            $action = "{$controller}/{$item->id}";
             break;
 
         case 'show';
@@ -31,6 +32,9 @@
     <form method="post" action="/{{$action}}" enctype="multipart/form-data" >
         @csrf
         
+        @if ('PATCH' == $method)
+            @method($method)
+        @endif
       
         <div class="mb-3">
             <label for="" class="form-label">Vehiculo</label>
@@ -74,10 +78,10 @@
         <div class="mb-3 row">
             <label for="inputName" class="col-4 col-form-label">Descripcion</label>
             <div class="col-8"            >
-                @if ($action== "/$controller/create")                    
-                <input  class="form-control" type="date" name="Created_At" >
+                @if ($method== "post")                    
+                <input  class="form-control" type="date" name="created_at" >
                 @else
-                <input  class="form-control" type="date" name="Created_At" value="{{ $item->Created_At->format('Y-m-d') }}">
+                <input  class="form-control" type="date" name="created_at" value="{{ $item->Created_At->format('Y-m-d') }}">
                 @endif
 
             </div>

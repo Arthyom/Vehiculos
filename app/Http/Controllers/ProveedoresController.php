@@ -35,8 +35,8 @@ class ProveedoresController extends Controller
      */
     public function store(Request $request)
     {
-        $this->proveedorProvider->create(new Proveedor($request->all()));
-        return route('proveedores.index');
+        $this->proveedorProvider->create($request);
+        return redirect( route('proveedores.index') );
     }
 
     /**
@@ -53,7 +53,6 @@ class ProveedoresController extends Controller
     public function edit(Proveedor $proveedor)
     {
         //
-        $proveedor = Proveedor::findOrFail($proveedor->id);
         return view('proveedores.edit', compact('proveedor'));
     }
 
@@ -62,7 +61,8 @@ class ProveedoresController extends Controller
      */
     public function update(Request $request, Proveedor $proveedor)
     {
-        //
+       $this->proveedorProvider->update($request, $proveedor);
+       return redirect(route('proveedores.index'));
     }
 
     /**

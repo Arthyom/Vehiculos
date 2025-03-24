@@ -86,7 +86,14 @@ class VehiculosController extends Controller
      */
     public function update(Request $request, Vehiculo $vehiculo)
     {
-        //
+        try {
+            //code...
+            $this->vehiculoProvider->update($request, $vehiculo);
+            return redirect(route('vehiculos.index'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
     }
 
     /**

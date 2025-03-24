@@ -50,6 +50,15 @@ class ServicioProvider extends ServiceProvider
         return $newServicio;
     }
 
+    public function update(Request $request, Servicio $servicio) : bool {
+        DB::beginTransaction();
+        
+        $updateServicio = $servicio->update($request->all());
+        
+        DB::commit();
+        return $updateServicio;
+    }
+
     public function index(): Collection {
        return Servicio::all();
     }
