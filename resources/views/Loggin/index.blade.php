@@ -1,6 +1,10 @@
 @extends('Layouts.base')
 
 @section('content')
+
+
+<h1>It has auto deployment</h1>
+
 @session('error')
     <div class="alert alert-danger" role="alert" >
         <strong>Error en sus credenciales</strong> 
