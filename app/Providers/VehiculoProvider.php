@@ -33,11 +33,31 @@ class VehiculoProvider extends ServiceProvider
     }
 
     function update(Request $request, Vehiculo $vehiculo) : bool {
+        
         DB::beginTransaction();
+        
+        $this->insertImages($request, $vehiculo->id);
         $newVehiculo = $vehiculo->update($request->all());
+        
         DB::commit();
         
         return $newVehiculo;
+    }
+
+    private function insertImages(Request $request, int $vehiculoId) : void {
+        if($request->Imagen){
+            foreach ($request->Imagen as $image) {
+                $imageUuid= Str::uuid() . ".{$image->extension()}";
+                $image->move( public_path('files'), $imageUuid);
+     
+                $newImage = new Imagen(  );
+                $newImage->Name = $imageUuid;
+                $newImage->save();
+     
+                $newVehiculoImagen = new VehiculoImagen(['Imagen_Id' => $newImage->id, 'Vehiculo_Id' => $vehiculoId]);
+                $newVehiculoImagen->save();
+             }
+        }
     }
 
     public function create(Request $request) : Vehiculo {
@@ -46,17 +66,8 @@ class VehiculoProvider extends ServiceProvider
         $newVehiculo = new Vehiculo( $request->all() );
         $newVehiculo->save();
 
-        foreach ($request->Imagen as $image) {
-           $imageUuid= Str::uuid() . ".{$image->extension()}";
-           $image->move( public_path('files'), $imageUuid);
-
-           $newImage = new Imagen(  );
-           $newImage->Name = $imageUuid;
-           $newImage->save();
-
-           $newVehiculoImagen = new VehiculoImagen(['Imagen_Id' => $newImage->id, 'Vehiculo_Id' => $newVehiculo->id]);
-           $newVehiculoImagen->save();
-        }
+        $this->insertImages($request, $newVehiculo->id);
+        
         DB::commit();
 
         $newVehiculo->save();

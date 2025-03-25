@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Session;
+use ErrorException;
 use App\Models\Servicio;
 use App\Models\Vehiculo;
-use App\Providers\ProveedorProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Providers\ServicioProvider;
 use App\Providers\VehiculoProvider;
-use Illuminate\Http\Request;
+use App\Providers\ProveedorProvider;
 
 class ServiciosController extends Controller
 {
@@ -48,9 +51,18 @@ class ServiciosController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $this->servicioProvider->create($request);
-        return redirect( route('servicios.index'));
+        try {
+            $ok = $this->servicioProvider->create($request);
+            if($ok){
+                return redirect(route('servicios.index'));
+            }
+            else{
+                throw new ErrorException('Cannot update Vehicle');
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect(route('servicios.index'))->withError($th);
+        }
     }
 
     /**
@@ -86,9 +98,18 @@ class ServiciosController extends Controller
      */
     public function update(Request $request, Servicio $servicio)
     {
-        //
-        $this->servicioProvider->update( $request, $servicio);
-        return redirect(route('servicios.index'));
+        try {
+            $ok = $this->servicioProvider->update( $request, $servicio);
+            if($ok){
+                return redirect(route('servicios.index'));
+            }
+            else{
+                throw new ErrorException('Cannot update Vehicle');
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect(route('servicios.index'))->withError($th);
+        }
     }
 
     /**

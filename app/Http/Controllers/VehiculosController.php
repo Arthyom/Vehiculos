@@ -13,6 +13,7 @@ use DB;
 use Doctrine\DBAL\Schema\View;
 use Illuminate\Http\Request;
 use Str;
+use ErrorException;
 
 class VehiculosController extends Controller
 {
@@ -54,11 +55,16 @@ class VehiculosController extends Controller
     {
         //
         try {
-            $this->vehiculoProvider->create($request);
-            return  redirect( route('vehiculos.index') );
+            $ok = $this->vehiculoProvider->create($request);
+            if($ok){
+                return redirect(route(name: 'vehiculos.index'));
+            }
+            else{
+                throw new ErrorException('Cannot update Vehicle');
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
-            return $th->getMessage();
+            return redirect(route('vehiculos.index'))->withError($th);
         }
     
     }
@@ -87,12 +93,16 @@ class VehiculosController extends Controller
     public function update(Request $request, Vehiculo $vehiculo)
     {
         try {
-            //code...
-            $this->vehiculoProvider->update($request, $vehiculo);
-            return redirect(route('vehiculos.index'));
+            $ok = $this->vehiculoProvider->update($request, $vehiculo);
+            if($ok){
+                return redirect(route(name: 'vehiculos.index'));
+            }
+            else{
+                throw new ErrorException('Cannot update Vehicle');
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
-            return $th;
+            return redirect(route('vehiculos.index'))->withError($th);
         }
     }
 

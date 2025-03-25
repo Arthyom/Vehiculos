@@ -106,8 +106,14 @@
         <div class="mb-3 row">
             <label for="inputName" class="col-4 col-form-label">Nota</label>
             <div class="col-8"            >
-                <input type="file" class="form-control" name="Nota" multiple/>
+                <input type="file" class="form-control" name="Nota" />
             </div>
+
+            @if ($item->Nota)
+                <img src="{{ asset('files/'.$item->Nota->Name) }}"
+                    class="img-fluid rounded-top"
+                />
+            @endif
         </div>
         
         <div class="mb-3 row">

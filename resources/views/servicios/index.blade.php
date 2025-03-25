@@ -3,6 +3,30 @@
 
 @section('content')
 
+@session('error')
+    <div
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+    >
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+        ></button>
+        <strong>Error</strong> Error al crear o editar el registro
+    </div>
+    
+    <script>
+        var alertList = document.querySelectorAll(".alert");
+        alertList.forEach(function (alert) {
+            new bootstrap.Alert(alert);
+        });
+    </script>
+    
+@endsession
+
+<h1>Listado de Servicios Automotrices</h1>
 
 <a class="btn btn-success" href="{{ route('servicios.create') }}">Crear</a>
 
@@ -15,6 +39,7 @@
                 <th scope="col">Proveedor</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Kilometraje</th>
+                <th scope="col">Total</th>
                 <th scope="col">Opciones</th>
 
 
@@ -35,8 +60,9 @@
                     {{ $service->vehiculo->Anio }}
                 </td>
                 <td>{{ $service->proveedor->Alias }}</td>
-                <td>{{ $service->Created_At->format('d-m-Y') }}</td>
+                <td>{{ $service->Created_At->format('d-M-Y') }}</td>
                 <td>{{ $service->Kilometraje }}</td>
+                <td>${{ number_format( $service->Total,2 )}}</td>
                 <td>
                     
                     <div class="row" >

@@ -23,7 +23,7 @@ class PolloLoginController extends Controller
         if(Auth::attempt($cred))
         {
             Session::regenerate();
-            return redirect()->intended();
+            return redirect(route('vehiculos.index'));
         }
         return back()->withError('Error en sus credenciales');
     }

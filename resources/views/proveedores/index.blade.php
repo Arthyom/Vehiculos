@@ -3,6 +3,7 @@
 
 @section('content')
 
+<h1>Listado de Proveedores</h1>
 
 <a class="btn btn-success" href="{{ Route('proveedores.create') }}" role="button">Create</a>
 
