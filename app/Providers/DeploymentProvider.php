@@ -34,7 +34,7 @@ class DeploymentProvider extends ServiceProvider
         $proddPath = '/home/frodo_lenovo/repos/scripts';
 
         $process = Process::path($proddPath);
-        $out = $process->run('bash vehiculos_deploy.sh');
+        $out = $process->run('sh vehiculos_deploy.sh');
         return $out->output();
     }
 }
