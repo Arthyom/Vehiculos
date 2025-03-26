@@ -9,21 +9,20 @@
     </div>
 @endsession
 
-<h6>using post to deploy</h6>
-<small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis sed voluptas modi quidem exercitationem. Repudiandae, ex reprehenderit, delectus nulla reiciendis molestias ipsam ipsum pariatur assumenda tempore minima nesciunt aliquid quibusdam.</small>
-
 <div class="container">
     <form method="post" action="login">
         @csrf
 
-        <div class="mb-3">
-            <label for="" class="form-label">City</label>
-            <select class="form-select form-select-lg" name="Role">
-                <option selected>Select one</option>
-                <option value="admin">Admin</option>
-                <option value="user">Usuario</option>
-                <option value="miron">Miron</option>
-            </select>
+        <div class="mb-3 row">
+            <label for="" class="col-4 col-form-label">Rol</label>
+            <div class="col-8">
+                <select class="form-select form-select-sm" name="Role">
+                    <option selected>Seleccione</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">Usuario</option>
+                    <option value="miron">Miron</option>
+                </select>
+            </div>
         </div>
         
 
@@ -36,7 +35,7 @@
         <div class="mb-3 row">
             <label for="inputName" class="col-4 col-form-label">Password</label>
             <div class="col-8">
-                <input type="text" class="form-control" name="password" />
+                <input type="password" class="form-control" name="password" />
             </div>
         </div>
 
@@ -50,7 +49,7 @@
         <div class="mb-3 row">
             <div class="offset-sm-4 col-sm-8">
                 <button type="submit" class="btn btn-primary">
-                    Action
+                    Entrar
                 </button>
             </div>
         </div>
