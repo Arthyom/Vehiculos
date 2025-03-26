@@ -23,7 +23,7 @@ Route::get('/login', [PolloLoginController::class,'index'])->name('login');
 Route::post('/login', [PolloLoginController::class,'login']);
 Route::get('login/logout', [PolloLoginController::class, 'logout']);
 
-Route::get('/deployment', [DeploymentController::class, 'index']);
+Route::post('/deployment', [DeploymentController::class, 'index']);
 
 Route::resource( 'proveedores' , ProveedoresController::class)
     ->middleware('auth')
