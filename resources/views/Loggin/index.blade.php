@@ -9,6 +9,8 @@
     </div>
 @endsession
 
+<h6>using post to deploy</h6>
+<small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis sed voluptas modi quidem exercitationem. Repudiandae, ex reprehenderit, delectus nulla reiciendis molestias ipsam ipsum pariatur assumenda tempore minima nesciunt aliquid quibusdam.</small>
 
 <div class="container">
     <form method="post" action="login">
