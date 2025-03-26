@@ -3,13 +3,15 @@
 @section('content')
 
 
-<h4>it also has auto deployment</h4>
 @session('error')
     <div class="alert alert-danger" role="alert" >
         <strong>Error en sus credenciales</strong> 
     </div>
 @endsession
 
+
+<h4>and auto deployment works</h4>
+<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi eos praesentium soluta voluptatibus a. Reprehenderit, nesciunt, excepturi voluptatem blanditiis quos natus nobis adipisci provident reiciendis enim doloribus totam culpa commodi!</p>
 
 <div class="container">
     <form method="post" action="login">
