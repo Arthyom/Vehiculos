@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
 class Servicio extends Model
 {
 	protected $table = 'Servicio';
-	public $timestamps = true;
+	public $timestamps = false;
 
 	protected $casts = [
 		'Created_At' => 'datetime',

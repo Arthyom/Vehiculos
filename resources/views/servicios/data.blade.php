@@ -79,9 +79,9 @@
             <label for="inputName" class="col-4 col-form-label">Descripcion</label>
             <div class="col-8"            >
                 @if ($method== "post")                    
-                <input  class="form-control" type="date" name="created_at" >
+                <input  class="form-control" type="date" name="Created_At" >
                 @else
-                <input  class="form-control" type="date" name="created_at" value="{{ $item->Created_At->format('Y-m-d') }}">
+                <input  class="form-control" type="date" name="Created_At" value="{{ $item->Created_At->format('Y-m-d') }}">
                 @endif
 
             </div>

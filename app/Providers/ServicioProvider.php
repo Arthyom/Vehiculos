@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Str;
+use Carbon\Carbon;
 use App\Models\Nota;
 use App\Models\Servicio;
 use App\Models\Vehiculo;
@@ -11,7 +13,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
-use Str;
 
 class ServicioProvider extends ServiceProvider
 {
@@ -64,6 +65,7 @@ class ServicioProvider extends ServiceProvider
             $servicio->Nota_Id = $nota->id;
         }
         
+        $servicio->Updated_At = Carbon::now();    
         $updateServicio = $servicio->update($request->all());
         DB::commit();
         return $updateServicio;
