@@ -21,6 +21,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $Updated_At
  * @property float|null $Total
  * @property int|null $Nota_Id
+ * @property bool $Pagado
+ * @property bool $Subsidiado
+
  * 
  * @property Nota|null $nota
  * @property Proveedor $proveedor
