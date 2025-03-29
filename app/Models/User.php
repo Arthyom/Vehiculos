@@ -22,6 +22,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null $Rol_Id
+ * 
+ * @property Rol|null $rol
  *
  * @package App\Models
  */
@@ -30,7 +33,8 @@ class User extends Authenticatable
 	protected $table = 'users';
 
 	protected $casts = [
-		'email_verified_at' => 'datetime'
+		'email_verified_at' => 'datetime',
+		'Rol_Id' => 'int'
 	];
 
 	protected $hidden = [
@@ -43,6 +47,16 @@ class User extends Authenticatable
 		'email',
 		'email_verified_at',
 		'password',
-		'remember_token'
+		'remember_token',
+		'Rol_Id'
 	];
+
+	public function rol()
+	{
+		return $this->belongsTo(Rol::class, 'Rol_Id');
+	}
+
+	public function isAdmin(): bool{
+		return $this->rol->id == 1;
+	}
 }

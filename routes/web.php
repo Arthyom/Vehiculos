@@ -6,6 +6,7 @@ use App\Http\Controllers\PolloLoginController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\VehiculosController;
+use App\Models\Vehiculo;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Support\Facades\Route;
 
@@ -26,12 +27,30 @@ Route::get('login/logout', [PolloLoginController::class, 'logout']);
 Route::post('/deployment', [DeploymentController::class, 'index']);
 
 Route::resource( 'proveedores' , ProveedoresController::class)
+    ->parameters(parameters: ['proveedores'=>'proveedor'])
     ->middleware('auth')
-    ->parameters(['proveedores'=>'proveedor'])
+    ->middlewareFor(
+        ['create', 'edit', 'store', 'update'], 
+        ['can:create, App\Models\User', 'can:update, App\Models\User']
+        )
     ;
 
 Route::resource( 'servicios' , ServiciosController::class)
-    ->middleware('auth');
+->middleware('auth')
+->middlewareFor(
+    ['create', 'edit', 'store', 'update'], 
+    ['can:create, App\Models\User', 'can:update, App\Models\User']
+    );
+
+
+
+    
+
 
 Route::resource( 'vehiculos' , VehiculosController::class)
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middlewareFor(
+        ['create', 'edit', 'store', 'update'], 
+        ['can:create, App\Models\Vehiculo', 'can:update, App\Models\Vehiculo']
+        );
+

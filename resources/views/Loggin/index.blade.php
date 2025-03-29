@@ -13,7 +13,7 @@
     <form method="post" action="login">
         @csrf
 
-        <div class="mb-3 row">
+        {{-- <div class="mb-3 row">
             <label for="" class="col-4 col-form-label">Rol</label>
             <div class="col-8">
                 <select class="form-select form-select-sm" name="Role">
@@ -23,7 +23,7 @@
                     <option value="miron">Miron</option>
                 </select>
             </div>
-        </div>
+        </div> --}}
         
 
         <div class="mb-3 row">
@@ -39,10 +39,10 @@
             </div>
         </div>
 
-        <div class="form-check">
+        {{-- <div class="form-check">
             <label class="form-check-label" for=""> Entrar como invitado </label>
             <input class="form-check-input" type="checkbox" value="IsGuest" />
-        </div>
+        </div> --}}
       
         
 

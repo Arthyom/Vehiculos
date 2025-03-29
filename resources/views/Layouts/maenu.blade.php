@@ -38,10 +38,16 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                     >
-                    {{ Auth::user()->name }}
-                    {{ Auth::user()->email }}
-                    </a
-                >
+                    @if ( Auth::user()->rol )
+                            {{ Auth::user()->rol->nombre }}
+                    @endif
+                    <strong>
+
+                        {{ Auth::user()->name }}
+                        {{ Auth::user()->email }}
+                    </strong>
+                    
+                </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
                     <a class="dropdown-item" href="#">Action 1</a>
                     <a class="dropdown-item text-bg-danger" href="/login/logout">Logout</a>

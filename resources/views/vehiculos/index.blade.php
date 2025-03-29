@@ -28,7 +28,9 @@
 
 <h1>Listado de Vehiculos</h1>
 
+@can('create', App\Models\Vehiculo::class)    
 <a  class="btn btn-success" href="{{ route('vehiculos.create') }}">Crear</a>
+@endcan
 
 
 <div class="table-responsive">
@@ -73,13 +75,19 @@
                             <a  class="btn btn-primary btn-expand-block" href="{{ route('vehiculos.show', $vehicle->id) }}">Ver</a>
                         </div>
 
+                        @can('create', App\Models\Vehiculo::class)
+                            
                         <div class="col-4">
                             <a  class="btn btn-warning" href="{{ route('vehiculos.edit', $vehicle->id) }}">Editar</a>
                         </div>
+                        @endcan
 
+                        @can('delete', App\Models\Vehiculo::class)    
                         <div class="col-4">
                             <a  class="btn btn-danger" href="">Borrar</a>
                         </div>
+                        @endcan
+
                     </div>
                     
                 </td>

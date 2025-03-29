@@ -5,7 +5,9 @@
 
 <h1>Listado de Proveedores</h1>
 
+@can('create', App\Models\User::class)
 <a class="btn btn-success" href="{{ Route('proveedores.create') }}" role="button">Create</a>
+@endcan
 
 <div class="table-responsive">
     <table class="table table-primary">
@@ -41,13 +43,17 @@
                                 <a  class="btn btn-primary" href="{{ route('proveedores.show', $provider->id) }}">Ver</a>
                             </div>
     
+                            @can('update', App\Models\User::class)    
                             <div class="col-4">
                                 <a  class="btn btn-warning" href="{{ route('proveedores.edit', $provider->id) }}">Editar</a>
                             </div>
+                            @endcan
     
+                            @can('delete', App\Models\User::class)    
                             <div class="col-4">
                                 <a  class="btn btn-danger" href="">Borrar</a>
                             </div>
+                            @endcan
                         </div>
                         
                     </td>

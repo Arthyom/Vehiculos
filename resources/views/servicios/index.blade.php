@@ -28,7 +28,9 @@
 
 <h1>Listado de Servicios Automotrices</h1>
 
+@can('create', App\Models\User::class)    
 <a class="btn btn-success" href="{{ route('servicios.create') }}">Crear</a>
+@endcan
 
 <div class="table-responsive">
     <table class="table table-primary">
@@ -70,13 +72,17 @@
                             <a  class="btn btn-primary" href="{{ route('servicios.show', $service->id) }}">Ver</a>
                         </div>
 
+                        @can('update', App\Models\User::class)    
                         <div class="col-4">
                             <a  class="btn btn-warning" href="{{ route('servicios.edit', $service->id) }}">Editar</a>
                         </div>
+                        @endcan
 
+                        @can('delete', App\Models\User::class)
                         <div class="col-4">
                             <a  class="btn btn-danger" href="">Borrar</a>
                         </div>
+                        @endcan
                     </div>
 
                 </td>

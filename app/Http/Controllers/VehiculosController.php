@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Str;
+use ErrorException;
 use App\Models\Imagen;
 use App\Models\Vehiculo;
+use Illuminate\Http\Request;
 use App\Models\VehiculoImagen;
-use App\Providers\ProveedorProvider;
+use Doctrine\DBAL\Schema\View;
 use App\Providers\ServicioProvider;
 use App\Providers\VehiculoProvider;
 use Carbon\Laravel\ServiceProvider;
-use DB;
-use Doctrine\DBAL\Schema\View;
-use Illuminate\Http\Request;
-use Str;
-use ErrorException;
+use App\Providers\ProveedorProvider;
+use Illuminate\Support\Facades\Auth;
 
 class VehiculosController extends Controller
 {
@@ -23,6 +24,7 @@ class VehiculosController extends Controller
      */
     public function __construct(private VehiculoProvider $vehiculoProvider)
     {
+        
     }
 
 
@@ -44,6 +46,8 @@ class VehiculosController extends Controller
     public function create()
     {
         //
+        // if(Auth::user()->cannot('create', Vehiculo::class))
+        //     abort(403,'');
         $vehiculo = new Vehiculo();
         return View('vehiculos.create', compact(['vehiculo']));
     }
