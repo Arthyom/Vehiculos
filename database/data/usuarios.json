@@ -1,0 +1,35 @@
+[
+	{
+		"id" : 1,
+		"name" : "admin",
+		"email" : "admin@pollo.com",
+		"email_verified_at" : null,
+		"password" : "$2y$12$\/DRHycQF4H5s5PfzsjzI2eLTspRfsadXrYIhZE9dDgfN65eFrCdK2",
+		"remember_token" : null,
+		"created_at" : "2020-01-01T06:00:00.000Z",
+		"updated_at" : null,
+		"Rol_Id" : 1
+	},
+	{
+		"id" : 2,
+		"name" : "usuario",
+		"email" : "usuario@pollo.com",
+		"email_verified_at" : null,
+		"password" : "$2y$12$GN3L7Eg3ZZok6FBjkemCdu0IiB5N1Pg4q8vIIIPd35elgTy8wGuwG",
+		"remember_token" : null,
+		"created_at" : "2020-01-01T06:00:00.000Z",
+		"updated_at" : null,
+		"Rol_Id" : 2
+	},
+    {
+		"id" : 3,
+		"name" : "miron",
+		"email" : "miron@pollo.com",
+		"email_verified_at" : null,
+		"password" : "$2y$12$GN3L7Eg3ZZok6FBjkemCdu0IiB5N1Pg4q8vIIIPd35elgTy8wGuwG",
+		"remember_token" : null,
+		"created_at" : "2020-01-01T06:00:00.000Z",
+		"updated_at" : null,
+		"Rol_Id" : 3
+	}
+]
