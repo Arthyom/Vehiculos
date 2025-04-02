@@ -1,7 +1,10 @@
-@extends('Layouts.base')
+{{-- @extends('Layouts.base')
 
 
-@section('content')
+@section('content') --}}
+
+<x-layout>
+
 
 @session('error')
     <div
@@ -94,7 +97,10 @@
     </table>
 </div>
 
+</x-layout>
 
 
 
-@endsection
+
+
+{{-- @endsection --}}

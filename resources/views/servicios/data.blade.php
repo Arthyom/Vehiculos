@@ -23,9 +23,9 @@
     }
 @endphp
 
-@extends('Layouts.base')
+{{-- @extends('Layouts.base')
 
-@section('content')
+@section('content') --}}
 
 
 <div class="container">
@@ -136,4 +136,4 @@
 
 
 
-@endsection
+{{-- @endsection --}}

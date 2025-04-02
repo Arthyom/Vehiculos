@@ -1,5 +1,7 @@
-@extends('Layouts.base')
+{{-- @extends('Layouts.base')
 
-@section('content')
+@section('content') --}}
+<x-layout>
     @include('vehiculos.data', ['vehicle'=>$vehiculo])
-@endsection
+</x-layout>    
+{{-- @endsection --}}

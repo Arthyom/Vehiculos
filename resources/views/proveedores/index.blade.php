@@ -1,7 +1,10 @@
-@extends('Layouts.base')
+{{-- @extends('Layouts.base')
 
 
-@section('content')
+@section('content') --}}
+
+<x-layout>
+
 
 <h1>Listado de Proveedores</h1>
 
@@ -70,4 +73,6 @@
 
 
 
-@endsection
+{{-- @endsection --}}
+
+</x-layout>

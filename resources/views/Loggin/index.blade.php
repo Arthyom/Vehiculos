@@ -1,6 +1,7 @@
-@extends('Layouts.base')
+ {{-- @extends('Layouts.base')--}}
+ 
+<x-layout>
 
-@section('content')
 
 
 @session('error')
@@ -55,4 +56,10 @@
         </div>
     </form>
 </div>
-@endsection
+
+
+{{-- @endsection --}}
+
+
+    
+</x-layout>
