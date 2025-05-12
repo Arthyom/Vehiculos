@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('/login', [PolloLoginController::class,'index'])->name('login');
 Route::post('/login', [PolloLoginController::class,'login']);
-Route::get('login/logout', [PolloLoginController::class, 'logout']);
+Route::get('/login/logout', action: [PolloLoginController::class, 'logout']);
 
 Route::post('/deployment', [DeploymentController::class, 'index']);
 
@@ -30,7 +30,7 @@ Route::resource( 'proveedores' , ProveedoresController::class)
     ->parameters(parameters: ['proveedores'=>'proveedor'])
     ->middleware('auth')
     ->middlewareFor(
-        ['create', 'edit', 'store', 'update'], 
+        ['create', 'edit', 'store', 'update'],
         ['can:create, App\Models\User', 'can:update, App\Models\User']
         )
     ;
@@ -38,19 +38,19 @@ Route::resource( 'proveedores' , ProveedoresController::class)
 Route::resource( 'servicios' , ServiciosController::class)
 ->middleware('auth')
 ->middlewareFor(
-    ['create', 'edit', 'store', 'update'], 
+    ['create', 'edit', 'store', 'update'],
     ['can:create, App\Models\User', 'can:update, App\Models\User']
     );
 
 
 
-    
+
 
 
 Route::resource( 'vehiculos' , VehiculosController::class)
     ->middleware('auth')
     ->middlewareFor(
-        ['create', 'edit', 'store', 'update'], 
+        ['create', 'edit', 'store', 'update'],
         ['can:create, App\Models\Vehiculo', 'can:update, App\Models\Vehiculo']
         );
 

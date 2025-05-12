@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proveedor;
-use App\Providers\ProveedorProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Providers\ProveedorProvider;
 
 
 class ProveedoresController extends Controller
@@ -19,7 +20,10 @@ class ProveedoresController extends Controller
         //
         session()->put(['session'=> 1, 'moresessions' =>2 ]);
         $allProviders = $this->proveedorProvider->index();
-        return view('proveedores.index', compact('allProviders'));
+        // return view('proveedores.index', compact('allProviders'));
+        return inertia('Proveedor/ListIndex', [
+            'allProviders' => $allProviders
+        ]);
     }
 
     /**
@@ -27,7 +31,11 @@ class ProveedoresController extends Controller
      */
     public function create()
     {
-        return view('proveedores.create', ['proveedor'=> new Proveedor()]);
+        // return view(view: 'proveedores.create', ['proveedor'=> new Proveedor()]);
+        return inertia( 'Proveedor/CreateEdit', [
+            'proveedor' => new Proveedor(),
+            'asCreate' => true
+        ]);
     }
 
     /**
@@ -36,7 +44,8 @@ class ProveedoresController extends Controller
     public function store(Request $request)
     {
         $this->proveedorProvider->create($request);
-        return redirect( route('proveedores.index') );
+        // return redirect( route('proveedores.index') );
+        return to_route('proveedores.index');
     }
 
     /**
@@ -44,7 +53,11 @@ class ProveedoresController extends Controller
      */
     public function show(Proveedor $proveedor)
     {
-        return view('proveedores.show', compact(var_name: 'proveedor'));
+        // return view('proveedores.show', compact(var_name: 'proveedor'));
+        return inertia( 'Proveedor/CreateEdit', [
+            'proveedor' => $proveedor,
+            'asShow' => true
+        ]);
     }
 
     /**
@@ -53,16 +66,28 @@ class ProveedoresController extends Controller
     public function edit(Proveedor $proveedor)
     {
         //
-        return view('proveedores.edit', compact('proveedor'));
+        // return view('proveedores.edit', compact('proveedor'));
+        return inertia( 'Proveedor/CreateEdit', [
+            'proveedor' => $proveedor,
+            'asCreate' => false
+        ]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Proveedor $proveedor)
     {
-       $this->proveedorProvider->update($request, $proveedor);
-       return redirect(route('proveedores.index'));
+        try {
+            $this->proveedorProvider->update($request, $proveedor);
+            return to_route('proveedores.index');
+            //code...
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect(route('proveedores.index'))->withError($th);
+        }
+            // return redirect(route('proveedores.index'));
     }
 
     /**

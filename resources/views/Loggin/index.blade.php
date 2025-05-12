@@ -6,7 +6,7 @@
 
 @session('error')
     <div class="alert alert-danger" role="alert" >
-        <strong>Error en sus credenciales</strong> 
+        <strong>Error en sus credenciales</strong>
     </div>
 @endsession
 
@@ -25,7 +25,7 @@
                 </select>
             </div>
         </div> --}}
-        
+
 
         <div class="mb-3 row">
             <label for="inputName" class="col-4 col-form-label">Name</label>
@@ -44,8 +44,8 @@
             <label class="form-check-label" for=""> Entrar como invitado </label>
             <input class="form-check-input" type="checkbox" value="IsGuest" />
         </div> --}}
-      
-        
+
+
 
         <div class="mb-3 row">
             <div class="offset-sm-4 col-sm-8">

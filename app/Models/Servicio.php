@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Servicio
- * 
+ *
  * @property int $id
  * @property Carbon $Created_At
  * @property int $Vehiculo_Id
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $Pagado
  * @property bool $Subsidiado
 
- * 
+ *
  * @property Nota|null $nota
  * @property Proveedor $proveedor
  * @property Vehiculo $vehiculo
@@ -54,6 +54,8 @@ class Servicio extends Model
 		'Descripcion',
 		'Updated_At',
 		'Total',
+        'Pagado',
+        'Subsidiado',
 		'Nota_Id'
 	];
 

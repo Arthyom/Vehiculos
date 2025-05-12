@@ -16,8 +16,8 @@ class ServiciosController extends Controller
 {
 
     public function __construct(
-        private ServicioProvider $servicioProvider, 
-        private VehiculoProvider $vehiculoProvider, 
+        private ServicioProvider $servicioProvider,
+        private VehiculoProvider $vehiculoProvider,
         private ProveedorProvider $proveedorProvider
         ) {
     }
@@ -28,7 +28,12 @@ class ServiciosController extends Controller
     public function index()
     {
        $allServices = $this->servicioProvider->index();
-       return view('servicios.index', compact('allServices'));
+
+    //    return view('servicios.index', compact('allServices'));
+
+       return inertia('Servicio/ListIndex', [
+        'allServices' => $allServices
+       ]);
     }
 
     /**
@@ -37,13 +42,32 @@ class ServiciosController extends Controller
     public function create()
     {
         //
-        $allProviders = $this->proveedorProvider->index();
-        $allVehicles  = $this->vehiculoProvider->index();
+        $allProviders = $this->proveedorProvider->index()
+            ->map( function($provider){
+                return [
+                    'Id' => $provider->id,
+                    'label' => "{$provider->Alias} - {$provider->Nombre}"
+                ];
+        });
+        $allVehicles  = $this->vehiculoProvider->index()
+            ->map( function ($vehicle){
+                return [
+                    'Id' => $vehicle->id,
+                    'label' => "{$vehicle->Marca} {$vehicle->Modelo} {$vehicle->Anio} - {$vehicle->Alias}"
+                ];
+            } );
         $servicio = new Servicio();
 
-        return view('servicios.create', 
-            compact('allProviders', 'allVehicles', 'servicio' )
-        );
+        // return view('servicios.create',
+        //     compact('allProviders', 'allVehicles', 'servicio' )
+        // );
+
+        return inertia('Servicio/CreateEdit', [
+            'servicio' => $servicio,
+            'vehicles' => $allVehicles,
+            'providers' => $allProviders,
+            'asCreate' => true
+        ]);
     }
 
     /**
@@ -71,12 +95,33 @@ class ServiciosController extends Controller
     public function show(Servicio $servicio)
     {
         //
-        $allProviders = $this->proveedorProvider->index();
-        $allVehicles  = $this->vehiculoProvider->index();
+        $allProviders = $this->proveedorProvider->index()
+        ->map( function($provider){
+            return [
+                'Id' => $provider->id,
+                'label' => "{$provider->Alias} - {$provider->Nombre}"
+            ];
+        });
+        $allVehicles  = $this->vehiculoProvider->index()
+        ->map( function ($vehicle){
+            return [
+                'Id' => $vehicle->id,
+                'label' => "{$vehicle->Marca} {$vehicle->Modelo} {$vehicle->Anio} - {$vehicle->Alias}"
+            ];
+        } );
 
-        return view('servicios.show', 
-        compact('servicio', 'allProviders', 'allVehicles')
-        );
+        $servicio->load('nota');
+
+    // return view('servicios.create',
+    //     compact('allProviders', 'allVehicles', 'servicio' )
+    // );
+
+        return inertia('Servicio/CreateEdit', [
+            'servicio' => $servicio,
+            'vehicles' => $allVehicles,
+            'providers' => $allProviders,
+            'asShow' => true
+        ]);
     }
 
     /**
@@ -84,13 +129,33 @@ class ServiciosController extends Controller
      */
     public function edit(Servicio $servicio)
     {
-        //
-        $allProviders = $this->proveedorProvider->index();
-        $allVehicles  = $this->vehiculoProvider->index();
+        $allProviders = $this->proveedorProvider->index()
+            ->map( function($provider){
+                return [
+                    'Id' => $provider->id,
+                    'label' => "{$provider->Alias} - {$provider->Nombre}"
+                ];
+        });
+        $allVehicles  = $this->vehiculoProvider->index()
+            ->map( function ($vehicle){
+                return [
+                    'Id' => $vehicle->id,
+                    'label' => "{$vehicle->Marca} {$vehicle->Modelo} {$vehicle->Anio} - {$vehicle->Alias}"
+                ];
+            } );
 
-        return view('servicios.edit', 
-        compact('servicio', 'allProviders', 'allVehicles')
-    );
+        $servicio->load('nota');
+
+        // return view('servicios.create',
+        //     compact('allProviders', 'allVehicles', 'servicio' )
+        // );
+
+        return inertia('Servicio/CreateEdit', [
+            'servicio' => $servicio,
+            'vehicles' => $allVehicles,
+            'providers' => $allProviders,
+            'asCreate' => false
+        ]);
     }
 
     /**
