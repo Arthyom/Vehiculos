@@ -18,13 +18,13 @@ use Illuminate\Support\Facades\Auth;
 
 class VehiculosController extends Controller
 {
-   
+
     /**
      * Class constructor.
      */
     public function __construct(private VehiculoProvider $vehiculoProvider)
     {
-        
+
     }
 
 
@@ -35,9 +35,21 @@ class VehiculosController extends Controller
     {
         //
         $sessionState = session()->all();
-        $allVehicles = Vehiculo::all();
-        return View('vehiculos.index', 
-        compact('allVehicles', 'sessionState'));
+        $allVehicles = Vehiculo::with('imagenes')->get()->each( function ($vehicle)  {
+            $vehicle->imagenes->each( function ($imagen)  {
+                $imagen->Name = asset("files/{$imagen->Name}");
+                return $imagen;
+            });
+            return $vehicle;
+        } );
+        // return View('vehiculos.index',
+        // compact('allVehicles', 'sessionState'));
+
+
+        return inertia('Vehiculo/ListIndex', [
+            'allVehicles' =>$allVehicles,
+            'sessionState' => $sessionState
+        ]);
     }
 
     /**
@@ -49,7 +61,12 @@ class VehiculosController extends Controller
         // if(Auth::user()->cannot('create', Vehiculo::class))
         //     abort(403,'');
         $vehiculo = new Vehiculo();
-        return View('vehiculos.create', compact(['vehiculo']));
+        // return View('vehiculos.create', compact(['vehiculo']));
+
+        return inertia('Vehiculo/CreateEdit' , [
+            'vehiculo' => $vehiculo,
+            'asCreate' => true
+        ]);
     }
 
     /**
@@ -70,7 +87,7 @@ class VehiculosController extends Controller
             DB::rollBack();
             return redirect(route('vehiculos.index'))->withError($th);
         }
-    
+
     }
 
     /**
@@ -79,7 +96,17 @@ class VehiculosController extends Controller
     public function show(Vehiculo $vehiculo)
     {
         //
-        return view('vehiculos.show', compact('vehiculo'));
+        // return view('vehiculos.show', compact('vehiculo'));
+        $vehiculo->load('imagenes');
+        $vehiculo->imagenes->each( function($image) {
+            $image->Name = asset("files/{$image->Name}");
+            return $image;
+        });
+        return inertia('Vehiculo/CreateEdit' , [
+            'vehiculo' => $vehiculo,
+            'asCreate' => false,
+            'asShow' => true
+        ]);
     }
 
     /**
@@ -87,8 +114,17 @@ class VehiculosController extends Controller
      */
     public function edit(Vehiculo $vehiculo)
     {
-        //
-        return view('vehiculos.edit', compact('vehiculo'));
+
+        $vehiculo->load('imagenes');
+        $vehiculo->imagenes->each( function($image) {
+            $image->Name = asset("files/{$image->Name}");
+            return $image;
+        });
+
+        return inertia('Vehiculo/CreateEdit' , [
+            'vehiculo' => $vehiculo,
+            'asCreate' => false
+        ]);
     }
 
     /**
@@ -99,7 +135,8 @@ class VehiculosController extends Controller
         try {
             $ok = $this->vehiculoProvider->update($request, $vehiculo);
             if($ok){
-                return redirect(route(name: 'vehiculos.index'));
+                // return redirect(route(name: 'vehiculos.index'));
+                return to_route('vehiculos.index');
             }
             else{
                 throw new ErrorException('Cannot update Vehicle');

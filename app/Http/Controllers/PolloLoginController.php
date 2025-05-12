@@ -18,18 +18,31 @@ class PolloLoginController extends Controller
         // return view('Loggin.index');
 
         // $user = User::find(1);
-        return inertia('Home');
+        return inertia('Login/Index');
     }
 
     public function login(Request $request)  {
-        $cred = $request->only(['email', 'password']);
-        // $cred['password'] = bcrypt( $cred['password'] );
-        if(Auth::attempt($cred))
-        {
-            Session::regenerate();
-            return redirect(route('vehiculos.index'));
+
+        try {
+            //code...
+            $cred = $request->only(['email', 'password']);
+            // $cred['password'] = bcrypt( $cred['password'] );
+            if(Auth::attempt($cred))
+            {
+                Session::regenerate();
+                return redirect(to: route('vehiculos.index'));
+            }
+            // return back()->withError('Error en sus credenciales');
+            return inertia('Login/Index', [
+                'errors' => ['credentials' => true]
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return inertia('Login/Index', [
+                'errors' => ['credentials' => true]
+            ]);
+
         }
-        return back()->withError('Error en sus credenciales');
     }
 
     public function logout()
@@ -37,6 +50,6 @@ class PolloLoginController extends Controller
         Auth::logout();
         Session::invalidate();
         Session::regenerateToken();
-        return Redirect::route('login');
+        return to_route('login');
     }
 }

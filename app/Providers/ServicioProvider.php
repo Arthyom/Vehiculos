@@ -21,7 +21,7 @@ class ServicioProvider extends ServiceProvider
      */
     public function register(): void
     {
-        
+
         $this->app->bind(ServicioProvider::class,function (Application $app){
             return new ServicioProvider($app);
         });
@@ -58,30 +58,35 @@ class ServicioProvider extends ServiceProvider
 
     public function update(Request $request, Servicio $servicio) : bool {
         DB::beginTransaction();
-        
+
         $nota = $this->insertNota($request);
 
         if($nota){
-            $servicio->Nota_Id = $nota->id;
+            $request['Nota_Id'] = $nota->id;
         }
-        
-        $servicio->Updated_At = Carbon::now();    
+
+        $servicio->Updated_At = Carbon::now();
         $updateServicio = $servicio->update($request->all());
+        // $updateServicio = $servicio->update();
+
         DB::commit();
         return $updateServicio;
     }
 
     public function index(): Collection {
-       return Servicio::all();
+       return Servicio::with(['vehiculo', 'proveedor', 'vehiculo.imagenes' ])
+       ->get();
     }
 
     private function insertNota(Request $request) : Nota | null{
-        if( $request->Nota){
-            $imageName = Str::uuid() .".{$request->Nota->extension()}";
-            $request->Nota->move(public_path( 'files' ), $imageName);
-            $image = new Nota(['Name'=>$imageName]);
-            $image->save();
-            return $image;
+        if( $request->Imagen){
+            if($request->Imagen[0]){
+                $imageName = Str::uuid() .".{$request->Imagen[0]->extension()}";
+                $request->Imagen[0]->move(public_path( 'files' ), $imageName);
+                $image = new Nota(['Name'=>$imageName]);
+                $image->save();
+                return $image;
+            }
         }
 
         return null;
