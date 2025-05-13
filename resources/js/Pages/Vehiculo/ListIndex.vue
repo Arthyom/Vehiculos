@@ -42,11 +42,19 @@ defineProps({allVehicles:Object , sessionState: Object})
                                 <div class="avatar">
                                     <div class="mask mask-squircle h-25 w-25">
                                         <template v-if="!!vehicle.imagenes">
-                                            <img
-                                                @error="(e)=>(e.target.src = vehicleNoImage)"
-                                                :src="vehicle.imagenes[0].Name || noImageUrl"
+                                            <template v-if="!vehicle.imagenes[0]">
+                                                <img
+                                                :src="vehicleNoImage"
                                                 alt="Avatar Tailwind CSS Component"
                                             />
+                                            </template>
+                                            <template v-else>
+                                                <img
+                                                    @error="(e)=>(e.target.src = vehicleNoImage)"
+                                                    :src="vehicle.imagenes[0].Name || noImageUrl"
+                                                    alt="Avatar Tailwind CSS Component"
+                                                />
+                                            </template>
                                         </template>
                                     </div>
                                 </div>
