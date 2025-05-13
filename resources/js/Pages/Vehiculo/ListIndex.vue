@@ -41,7 +41,7 @@ defineProps({allVehicles:Object , sessionState: Object})
                             <div class="items-center gap-3">
                                 <div class="avatar">
                                     <div class="mask mask-squircle h-25 w-25">
-                                        <template v-if="vehicle.imagenes">
+                                        <template v-if="!!vehicle.imagenes">
                                             <img
                                                 @error="(e)=>(e.target.src = vehicleNoImage)"
                                                 :src="vehicle.imagenes[0].Name || noImageUrl"
