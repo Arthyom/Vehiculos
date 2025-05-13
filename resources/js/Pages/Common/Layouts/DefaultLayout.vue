@@ -19,7 +19,6 @@ import NavMenue from './NavMenue.vue';
 
 
     <footer>
-        <h1>And more changes</h1>
-        <h1>this is an example <span>with auto deploy</span> </h1>
+
     </footer>
 </template>
