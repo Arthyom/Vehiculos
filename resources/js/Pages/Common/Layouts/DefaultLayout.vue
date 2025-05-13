@@ -19,5 +19,6 @@ import NavMenue from './NavMenue.vue';
 
 
     <footer>
+        this is a change to test the deployment feature
     </footer>
 </template>
