@@ -19,6 +19,5 @@ import NavMenue from './NavMenue.vue';
 
 
     <footer>
-        <p>Hola Este es el footer</p>
     </footer>
 </template>
