@@ -35,8 +35,9 @@ const formatData = (val) =>{
 
 <template>
     <div class="flex flex-col" v-if="typeInput === 'checkbox'">
-        <label class="label font-bold block w-full">{{ label }}</label>
-
+        <label class="ml-1 label font-bold block w-full">{{ label }}
+            <span class="text-error">*</span>
+        </label>
         <input
             :checked = 'Boolean( modelValue )'
             :value="modelValue"
@@ -46,28 +47,32 @@ const formatData = (val) =>{
             :type="typeInput"
             class="radio radio-primary"
         />
-        <span v-if="error" class="text-error text-sm">{{ error }}</span>
+        <span v-if="error" class="ml-1 text-error text-sm mt-1">{{ error }}</span>
     </div>
 
     <div class="flex flex-col" v-else-if="typeInput === 'select'">
-            <label class="label font-bold block w-full">{{ label }}</label>
+            <label class="ml-1 label font-bold block w-full">{{ label }}
+                <span class="text-error">*</span>
+            </label>
             <select class="select w-full" @input="$emit('update:modelValue', $event.target.value)" @blur="$emit('blur')"  :value="modelValue"            >
                 <option  selected>Seleccione uno</option>
                 <option v-for="item in additionalData" :value="item.Id">{{ item.label }}</option>
 
             </select>
-            <span class="label text-sm text-light text-error" v-if="error" >{{error}}</span>
+            <span class="ml-1 label text-sm text-light text-error mt-1" v-if="error" >{{error}}</span>
     </div>
 
-    <div class="flex flex-col" v-else>
-        <label class="label font-bold block w-full">{{ label }}</label>
+    <div class="flex flex-col mt-3" v-else>
+        <label class="ml-1 label font-bold block w-full">{{ label }}
+            <span class="text-error">*</span>
+        </label>
         <input
             :value="formatData(modelValue)"
             @input="$emit('update:modelValue', $event.target.value)"
             @blur="$emit('blur')"
             :type="typeInput"
-            class="input w-full"
+            class="input w-full border-info rounded-md"
         />
-        <span v-if="error" class="text-error text-sm">{{ error }}</span>
+        <span v-if="error" class="ml-1 text-error text-sm mt-1">{{ error }}</span>
     </div>
 </template>

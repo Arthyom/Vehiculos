@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useDefaultCommon } from '../Composables/common-composable'
 import { noImageUrl } from '../Constants/Constants'
-import { usePage } from '@inertiajs/vue3'
+import { router, usePage } from '@inertiajs/vue3'
 
 const emiter = defineEmits('emitImages')
 
@@ -12,8 +12,35 @@ const props = defineProps({
      imagesToSend: Object
 })
 
-const {vehicleNoImage, serviceNoImage} = useDefaultCommon()
+const {vehicleNoImage, serviceNoImage, providerNoImage} = useDefaultCommon()
 
+const errorImage = (e) =>{
+    const splitedPath = window.location.pathname.split('/')
+    const resource = splitedPath[1]
+
+    console.log('sdsd', resource)
+    let noImage = ''
+
+    switch (resource) {
+        case 'vehiculos':
+            noImage = vehicleNoImage.value
+            break;
+
+        case 'servicios':
+            noImage = serviceNoImage.value
+            break;
+
+        case 'proveedores':
+            noImage = providerNoImage.value
+            break;
+
+        default:
+            noImage = vehicleNoImage.value
+            break;
+    }
+
+    return e.target.src =  noImage
+}
 const filesPath = computed( () => {
     if(usePage().component.includes('Servicio'))
         return '/files/'
@@ -57,31 +84,34 @@ emiter('emitImages', props.imagesToSend, props.filesToSend)
 
 
 }
+
 </script>
 
 <template>
-    <div class="w-full h-full rounded-xl">
-        <div class="h-[70%] p-2">
-            <div class="carousel w-full h-[90%]">
+    <div class="w-full">
+        <div class="m-2">
+            <div class=" carousel w-full  ">
                 <template v-if="imagesToSend.length > 0">
                     <template v-for="(image, i) in imagesToSend">
                         <div
                             v-if="!image.includes('blob')"
                             :id="`item${i}`"
-                            class="carousel-item w-full"
+                            class=" carousel-item w-full bg-info"
                         >
                             <img
-                                class="w-full rounded-xl max-h-[340px]"
+                                @error="errorImage"
+                                class="w-full max-h-[340px] rounded-lg p-2"
                                 :src="`${filesPath}${image}`"
                             />
                         </div>
                         <div
                             v-else
                             :id="`item${i}`"
-                            class="carousel-item w-full"
+                            class="carousel-item w-full   "
                         >
                             <img
-                                class="w-full rounded-xl max-h-[340px]"
+                                @error="errorImage"
+                                class="w-full  max-h-[340px]"
                                 :src="`${image}`"
                             />
                         </div>
@@ -90,7 +120,7 @@ emiter('emitImages', props.imagesToSend, props.filesToSend)
                 <template v-else>
                     <div class="carousel-item w-full">
                         <img
-                            class="w-full border rounded-2xl bg-info max-h-[340px]"
+                            class=" w-full border rounded-2xl bg-info max-h-[340px]"
                             :src="vehicleNoImage"
                         />
                     </div>
@@ -112,11 +142,11 @@ emiter('emitImages', props.imagesToSend, props.filesToSend)
             </div>
         </div>
 
-        <div class="w-full">
+        <div class="w-full ">
             <!-- component -->
-            <div class="w-full p-2 ">
+            <div class="w-full h-full p-2 ">
                 <div
-                    class="mt-2   relative h-38 rounded-lg border-dashed border-2 border-blue-700 bg-gray-100 flex justify-center items-center"
+                    class="mt-2  h-[60px] relative  rounded-lg border-dashed border-2 border-blue-700 bg-gray-100 flex justify-center items-center"
                 >
                     <div class="absolute">
                         <div class="flex flex-col  items-center">
@@ -132,7 +162,7 @@ emiter('emitImages', props.imagesToSend, props.filesToSend)
 
                     <input
                         type="file"
-                        class="h-full w-full opacity-0"
+                        class="h-full w-full  opacity-0"
                         multiple
                         @change="onFileInputChange"
                     />

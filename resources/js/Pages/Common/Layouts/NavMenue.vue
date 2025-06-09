@@ -53,7 +53,7 @@ console.log('enviando datos', menuItems)
                         <li v-for="menuItem in menuItems">
                             <details>
                                 <summary>{{ menuItem.label }}</summary>
-                                <ul class="bg-neutral ">
+                                <ul class="bg-neutral">
                                     <li v-for="child in menuItem.children">
                                         <Link
                                             :href="`/${menuItem.to}/${child.to}`"
@@ -93,22 +93,23 @@ console.log('enviando datos', menuItems)
             </div>
 
             <div class="navbar-end">
-                <div class="dropdown dropdown-end">
+                <div class="dropdown dropdown-end cursor-pointer">
                     <div
                         tabindex="0"
                         role="button"
-                        class="btn btn-ghost btn-circle avatar"
+                        class=" avatar avatar-placeholder  "
                     >
-                        <div class="w-10 rounded-full">
-                            <img
-                                alt="Tailwind CSS Navbar component"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                            />
-                        </div>
+                            <div
+                                class=" bg-neutral text-neutral-content w-12 rounded-full"
+                            >
+                                <span class="text-xl">
+                                    {{ $page.props.user.current.name.slice(0,2).toUpperCase() }}
+                                </span>
+                            </div>
                     </div>
                     <ul
                         tabindex="0"
-                        class="menu menu-sm dropdown-content bg-black rounded-box z-1 w-30 p-2 shadow"
+                        class="menu menu-sm dropdown-content bg-black rounded-box z-1 w-30 p-2 mt-1 shadow"
                     >
                         <li class="">
                             <h2

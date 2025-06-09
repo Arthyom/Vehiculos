@@ -130,18 +130,20 @@ const sendRequest = (vals)=>{
 }
 </script>
 
-<template >
+<template>
     <CustomLoader :showDialog="showDialog"></CustomLoader>
 
     <div class="min-h-screen bg-white">
-        <div class="h-30 bg-info text-center pt-9 mb-5">
-            <h1 class="text-white text-5xl font-extrabold">
+        <div
+            class="h-30 bg-info text-center font-extrabold flex flex-row justify-center text-white"
+        >
+            <h1 class="flex text-5xl sm:text-6xl items-center h-full">
                 PolliCulos |
                 <span class="text-black font-bold">Bienvenido</span>
             </h1>
         </div>
 
-        <div class="flex flex-col h-[40rem]">
+        <div class="flex flex-col h-[40rem] m-8">
             <div
                 v-if="$page.props.errors.credentials"
                 class="flex flex-row justify-center h-[10%] mt-30"
@@ -199,7 +201,7 @@ const sendRequest = (vals)=>{
                                     </select>
                                 </div>
 
-                                <div class="pl-6 pr-6 pb-4">
+                                <!-- <div class="pl-6 pr-6 pb-4">
                                     <label class="font-light text-xl">
                                         Usuario<span
                                             class="text-2xl text-red-500 text-center"
@@ -224,9 +226,104 @@ const sendRequest = (vals)=>{
                                         v-if="errors.email"
                                         >{{ errors.email }}</span
                                     >
+                                </div> -->
+
+                                 <div class="pl-6 pr-6 pb-4">
+                                    <label class="font-light text-xl">
+                                        Usuario<span
+                                            class="text-2xl text-red-500"
+                                            >*</span
+                                        >
+                                    </label>                                    <div class="join w-full">
+                                        <div class="w-full">
+                                            <label
+                                                :class="[
+                                                        'input w-full  join-item ',
+                                                        {
+                                                            'input-error':
+                                                                errors.email,
+                                                        },
+                                                    ]"
+                                            >
+                                            <font-awesome-icon
+                                                icon="fa-solid fa-user"
+                                            ></font-awesome-icon>
+                                                <input
+                                                    ref="emailRef"
+                                                    type="email"
+                                                    :class="[
+                                                        ' ',
+                                                        {
+                                                            'input-error':
+                                                                errors.email,
+                                                        },
+                                                    ]"
+                                                    v-model="email"
+                                                    v-bind="emailAttrs"
+                                                    placeholder="Escriba su contraseña"
+                                                />
+                                                <span
+                                        class="label text-red-500 rounded-sm bg-gray-300"
+                                        v-if="errors.email"
+                                        >{{ errors.email }}</span
+                                    >
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="pl-6 pr-6 pb-4">
+                                    <label class="font-light text-xl">
+                                        Contraseña<span
+                                            class="text-2xl text-red-500"
+                                            >*</span
+                                        >
+                                    </label>                                    <div class="join w-full">
+                                        <div class="w-full">
+                                            <label
+                                                :class="[
+                                                        'input w-full  join-item ',
+                                                        {
+                                                            'input-error':
+                                                                errors.password,
+                                                        },
+                                                    ]"
+                                            >
+                                            <font-awesome-icon
+                                                icon="fa-solid fa-lock"
+                                            ></font-awesome-icon>
+                                                <input
+                                                    ref="passwordRef"
+                                                    type="password"
+                                                    :class="[
+                                                        ' ',
+                                                        {
+                                                            'input-error':
+                                                                errors.password,
+                                                        },
+                                                    ]"
+                                                    v-model="password"
+                                                    v-bind="passwordAttrs"
+                                                    placeholder="Escriba su contraseña"
+                                                />
+                                                <span
+                                        class="label text-red-500 rounded-sm bg-gray-300"
+                                        v-if="errors.password"
+                                        >{{ errors.password }}</span
+                                    >
+                                            </label>
+                                        </div>
+                                        <button
+                                            @click="passRef.type= passRef.type === 'text' ? 'password' : 'text'"
+                                            class="btn btn-neutral join-item"
+                                        >
+                                            <font-awesome-icon
+                                                icon="fa-solid fa-eye"
+                                            ></font-awesome-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- <div class="pl-6 pr-6 pb-4">
                                     <label class="font-light text-xl">
                                         Contraseña<span
                                             class="text-2xl text-red-500"
@@ -251,7 +348,7 @@ const sendRequest = (vals)=>{
                                         v-if="errors.password"
                                         >{{ errors.password }}</span
                                     >
-                                </div>
+                                </div> -->
                             </fieldset>
 
                             <div class="grid grid-cols-2 gap-2 pt-4">

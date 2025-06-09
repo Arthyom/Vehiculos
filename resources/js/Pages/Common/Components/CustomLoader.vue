@@ -19,8 +19,8 @@ import { computed, onBeforeUpdate, onMounted,  onUpdated,  ref,  useTemplateRef,
 
 <template>
 
-        <dialog ref="dialog"  id="my_modal_1" class="modal text-center" >
-          <div class="modal-box w-[15%]">
+        <dialog ref="dialog"   class="modal text-center" >
+          <div class="modal-box w-[45%] xs:w-[15%]">
             <h3 class="text-lg font-bold">{{ title }}</h3>
             <p class="py-4">{{ message }}</p>
             <span class="loading loading-spinner  w-full"></span>

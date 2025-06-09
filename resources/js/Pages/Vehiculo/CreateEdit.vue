@@ -85,7 +85,6 @@ const filesToSend = ref([])
             :meta="meta"
             :initialValues="values"
             :formCols="2"
-
         >
 
         </CustomTemplateForm>
