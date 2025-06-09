@@ -4,6 +4,7 @@ import { Link, router, usePage } from "@inertiajs/vue3";
 import { useForm } from "vee-validate";
 import { computed, onMounted, ref, useTemplateRef } from "vue";
 import * as yup from "yup";
+import CustomLoader from "../Common/Components/CustomLoader.vue";
 
 
 const roles = [
@@ -15,7 +16,7 @@ const roles = [
 const validationSchema = yup.object({
     email: yup.string().email().required(),
     password: yup.string().min(8).required(),
-    role: yup.string().oneOf([]),
+    role: yup.string().oneOf([]).notRequired(),
 });
 
 const { values, defineField, errors, meta, handleSubmit } = useForm({
@@ -27,10 +28,8 @@ const [password, passwordAttrs] = defineField("password");
 const [role, roleAttrs] = defineField("role");
 
 const onSubmit = handleSubmit((value) => {
-
-    console.log('haciendo un submiet')
     hideAlert()
-    router.post("login", value);
+    sendRequest(value)
 });
 
 const showError = ref(false)
@@ -69,6 +68,17 @@ const roleRoutine = () =>{
     btnRef.value.classList.remove('btn-disabled')
 }
 
+const roleRoutineInverse = () =>{
+    passRef.value.disabled = false
+    emailRef.value.disabled = false
+
+    useRole.value = false
+
+    btnRef.value.disabled = true
+}
+
+
+
 const logginAs = (event)=>{
     hideAlert()
 
@@ -87,6 +97,12 @@ const logginAs = (event)=>{
             password.value = "1234Invitado"
             roleRoutine()
         break;
+
+        default:
+            email.value = ''
+            password.value = ""
+            roleRoutineInverse()
+            break;
     }
 }
 
@@ -96,26 +112,40 @@ const resetPage = () =>{
 }
 
 
+const showDialog = ref()
+
 const loginByRole = () =>{
-    if(useRole.value)
-    router.post('login', values)
+    showDialog.value = true
+    if(useRole.value ){
+        sendRequest(values)
+    }
 }
 
+
+const sendRequest = (vals)=>{
+    router.post('login', vals, {
+        onSuccess: () => showDialog.value = false,
+        onError: () => {showDialog.value = false}
+    });
+}
 </script>
 
-<template>
+<template >
+    <CustomLoader :showDialog="showDialog"></CustomLoader>
 
-
-    <div class="min-h-screen ">
-        <div  class="h-30 bg-info text-center pt-9 mb-5">
+    <div class="min-h-screen bg-white">
+        <div class="h-30 bg-info text-center pt-9 mb-5">
             <h1 class="text-white text-5xl font-extrabold">
                 PolliCulos |
                 <span class="text-black font-bold">Bienvenido</span>
             </h1>
         </div>
 
-        <div class="flex flex-col h-[40rem]   ">
-            <div v-if="$page.props.errors.credentials" class="flex flex-row justify-center h-[10%] mt-30">
+        <div class="flex flex-col h-[40rem]">
+            <div
+                v-if="$page.props.errors.credentials"
+                class="flex flex-row justify-center h-[10%] mt-30"
+            >
                 <div
                     role="alert"
                     class="alert alert-vertical alert-error sm:alert-horizontal"
@@ -140,10 +170,13 @@ const loginByRole = () =>{
                 </div>
             </div>
 
-            <div class="flex flex-row justify-center items-center  h-full">
-
+            <div class="flex flex-row justify-center items-center h-full">
                 <div class="grid grid-cols-6 basis-2xl">
-                    <form class="col-span-6" @submit.prevent="onSubmit" ref="form">
+                    <form
+                        class="col-span-6"
+                        @submit.prevent="onSubmit"
+                        ref="form"
+                    >
                         <div class="w-full">
                             <fieldset class="fieldset border rounded-xl">
                                 <div class="bg-info mt-2 p-6 mb-6">
@@ -222,7 +255,8 @@ const loginByRole = () =>{
                             </fieldset>
 
                             <div class="grid grid-cols-2 gap-2 pt-4">
-                                <input type="submit"
+                                <input
+                                    type="submit"
                                     @click="loginByRole"
                                     value="Entrar"
                                     ref="loginRef"
@@ -235,7 +269,6 @@ const loginByRole = () =>{
                                     ]"
                                 />
 
-
                                 <span
                                     @click="resetPage"
                                     class="col btn btn-active btn-error btn-block"
@@ -246,7 +279,6 @@ const loginByRole = () =>{
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

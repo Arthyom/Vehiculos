@@ -18,3 +18,9 @@
     themes: light --default;
 
   }
+
+body{
+    @apply bg-base-300;
+    @apply min-h-dvh
+
+}

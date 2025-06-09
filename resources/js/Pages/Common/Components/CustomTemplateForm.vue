@@ -6,6 +6,8 @@ import OkCancelComponent from './OkCancelComponent.vue';
 import ImageCarroucelComponent from './ImageCarroucelComponent.vue';
 import CustomInputComponent from './CustomInputComponent.vue';
 import { Link, router } from '@inertiajs/vue3';
+import CustomLoader from './CustomLoader.vue';
+import { ref } from 'vue';
 
 
 const props = defineProps(
@@ -40,25 +42,40 @@ const captureImages = (images,files)=>{
     props.filesToSend.value = files
 }
 
-const handleSubForm =  () =>{
+const showDialog = ref(false)
 
+const handleSubForm =  () =>{
+showDialog.value = true
 const valsToSend = Object.assign({_method: props.asCreate ? 'post':'patch'}, props.initialValues)
 valsToSend.Imagen = props.filesToSend.value
 
 console.log('iagenes a enviar', valsToSend);
 
-if(props.asCreate)
-    router.post( `/${props.link}`,  valsToSend , {forceFormData: true, })
+if(props.asCreate){
+
+    router.post( `/${props.link}`,  valsToSend , {
+        forceFormData: true,
+        onSuccess: () => showDialog.value  = false,
+        onError: () => {showDialog.value = false; alert('Error')}
+    })
+}
 else
     router.post(`/${props.link}/${props.initialValues.id}`,
             valsToSend,
-            {forceFormData: true}
+            {
+                forceFormData: true,
+                onSuccess: () => showDialog.value  = false,
+                onError: () => {showDialog.value = false; alert('Error')}
+            }
         )
 
 }
 </script>
 
 <template>
+
+        <CustomLoader :showDialog="showDialog"></CustomLoader>
+
         <IndexTitle
             :useButton="false"
             :label="label"
