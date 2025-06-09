@@ -135,11 +135,13 @@ const sendRequest = (vals)=>{
 
     <div class="min-h-screen bg-white">
         <div
-            class="h-30 bg-info text-center font-extrabold flex flex-row justify-center text-white"
+            class="h-30 bg-info text-center font-extrabold flex flex-row justify-center text-white w-full"
         >
-            <h1 class="flex text-5xl sm:text-6xl items-center h-full">
-                PolliCulos |
-                <span class="text-black font-bold">Bienvenido</span>
+            <h1 class="flex text-3xl sm:text-6xl items-center h-full">
+                <div class="shrink">
+                    PolliCulos |
+                    <span class="text-black font-bold">Bienvenido</span>
+                </div>
             </h1>
         </div>
 
@@ -228,26 +230,27 @@ const sendRequest = (vals)=>{
                                     >
                                 </div> -->
 
-                                 <div class="pl-6 pr-6 pb-4">
+                                <div class="pl-6 pr-6 pb-4">
                                     <label class="font-light text-xl">
                                         Usuario<span
                                             class="text-2xl text-red-500"
                                             >*</span
                                         >
-                                    </label>                                    <div class="join w-full">
+                                    </label>
+                                    <div class="join w-full">
                                         <div class="w-full">
                                             <label
                                                 :class="[
-                                                        'input w-full  join-item ',
-                                                        {
-                                                            'input-error':
-                                                                errors.email,
-                                                        },
-                                                    ]"
+                                                    'input w-full  join-item ',
+                                                    {
+                                                        'input-error':
+                                                            errors.email,
+                                                    },
+                                                ]"
                                             >
-                                            <font-awesome-icon
-                                                icon="fa-solid fa-user"
-                                            ></font-awesome-icon>
+                                                <font-awesome-icon
+                                                    icon="fa-solid fa-user"
+                                                ></font-awesome-icon>
                                                 <input
                                                     ref="emailRef"
                                                     type="email"
@@ -262,14 +265,14 @@ const sendRequest = (vals)=>{
                                                     v-bind="emailAttrs"
                                                     placeholder="Escriba su contraseña"
                                                 />
-                                                <span
-                                        class="label text-red-500 rounded-sm bg-gray-300"
-                                        v-if="errors.email"
-                                        >{{ errors.email }}</span
-                                    >
                                             </label>
                                         </div>
                                     </div>
+                                    <span
+                                        class="label text-red-500 rounded-sm mt-1"
+                                        v-if="errors.email"
+                                        >{{ errors.email }}</span
+                                    >
                                 </div>
 
                                 <div class="pl-6 pr-6 pb-4">
@@ -278,20 +281,21 @@ const sendRequest = (vals)=>{
                                             class="text-2xl text-red-500"
                                             >*</span
                                         >
-                                    </label>                                    <div class="join w-full">
+                                    </label>
+                                    <div class="join w-full">
                                         <div class="w-full">
                                             <label
                                                 :class="[
-                                                        'input w-full  join-item ',
-                                                        {
-                                                            'input-error':
-                                                                errors.password,
-                                                        },
-                                                    ]"
+                                                    'input w-full  join-item ',
+                                                    {
+                                                        'input-error':
+                                                            errors.password,
+                                                    },
+                                                ]"
                                             >
-                                            <font-awesome-icon
-                                                icon="fa-solid fa-lock"
-                                            ></font-awesome-icon>
+                                                <font-awesome-icon
+                                                    icon="fa-solid fa-lock"
+                                                ></font-awesome-icon>
                                                 <input
                                                     ref="passwordRef"
                                                     type="password"
@@ -306,22 +310,28 @@ const sendRequest = (vals)=>{
                                                     v-bind="passwordAttrs"
                                                     placeholder="Escriba su contraseña"
                                                 />
-                                                <span
-                                        class="label text-red-500 rounded-sm bg-gray-300"
-                                        v-if="errors.password"
-                                        >{{ errors.password }}</span
-                                    >
                                             </label>
                                         </div>
-                                        <button
-                                            @click="passRef.type= passRef.type === 'text' ? 'password' : 'text'"
+                                        <inpur type="button"
+                                            role="button"
+                                            @click="
+                                                passRef.type =
+                                                    passRef.type === 'text'
+                                                        ? 'password'
+                                                        : 'text'
+                                            "
                                             class="btn btn-neutral join-item"
                                         >
                                             <font-awesome-icon
                                                 icon="fa-solid fa-eye"
                                             ></font-awesome-icon>
-                                        </button>
+                                        </inpur>
                                     </div>
+                                    <span
+                                        class="label text-red-500 rounded-sm mt-1"
+                                        v-if="errors.password"
+                                        >{{ errors.password }}</span
+                                    >
                                 </div>
                                 <!-- <div class="pl-6 pr-6 pb-4">
                                     <label class="font-light text-xl">

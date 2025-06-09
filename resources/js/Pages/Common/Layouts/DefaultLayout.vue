@@ -8,7 +8,7 @@ import NavMenue from './NavMenue.vue';
 
     <main class="w-full">
 
-        <div class=" m-15">
+        <div class=" mx-4 my-12">
 
             <div class="">
                 <slot></slot>
