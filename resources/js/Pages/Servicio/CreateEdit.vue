@@ -25,6 +25,7 @@ import CustomTemplateForm from '../Common/Components/CustomTemplateForm.vue';
 import DefaultLayout from '../Common/Layouts/DefaultLayout.vue';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
+import { UseVehiclesConf } from '../Common/Composables/config-fields-composable';
 
 const props = defineProps({servicio: Object, vehicles: Object, providers: Object, asCreate: true, asShow: false})
 
@@ -41,14 +42,7 @@ const validationSchema = yup.object({
     Subsidiado: yup.boolean()
 })
 
-const conf  = (state,  typeInput = 'text',   label = null, additionalData = null  ) =>
-
-        ({
-            error: state.errors[0],
-            label: label == null ?   state.path : label,
-            typeInput,
-            additionalData
-        })
+const {conf} = UseVehiclesConf()
 
 
 

@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 /* import specific icons */
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
+import VueNumberFormat from 'vue-number-format'
+
 createInertiaApp({
     resolve: (name) => {
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
@@ -19,7 +21,10 @@ createInertiaApp({
         /* add icons to the library */
         library.add(fas);
 
+
+
         createApp({ render: () => h(App, props) })
+            .use(VueNumberFormat, {prefix: '', decimal: '.', thousand: ','})
             .use(plugin)
             .component('font-awesome-icon', FontAwesomeIcon)
             .mount(el);

@@ -6,6 +6,8 @@ const props = defineProps({
     typeInput:'text',
     modelValue: String,
     label: String,
+    isRequired: Boolean,
+    isVisible: Boolean,
     additionalData: Array
 })
 
@@ -35,44 +37,67 @@ const formatData = (val) =>{
 
 <template>
     <div class="flex flex-col" v-if="typeInput === 'checkbox'">
-        <label class="ml-1 label font-bold block w-full">{{ label }}
-            <span class="text-error">*</span>
-        </label>
-        <input
-            :checked = 'Boolean( modelValue )'
-            :value="modelValue"
-            @input="$emit('update:modelValue', $event.target.value)"
-            @blur="$emit('blur')"
-            @change="changeCheckValue"
-            :type="typeInput"
-            class="radio radio-primary"
-        />
-        <span v-if="error" class="ml-1 text-error text-sm mt-1">{{ error }}</span>
+        <template v-if="isVisible">
+            <label class="ml-1 label font-bold block w-full"
+                >{{ label }}
+                <span class="text-error" v-if="isRequired">*</span>
+            </label>
+            <input
+                :checked="Boolean(modelValue)"
+                :value="modelValue"
+                @input="$emit('update:modelValue', $event.target.value)"
+                @blur="$emit('blur')"
+                @change="changeCheckValue"
+                :type="typeInput"
+                class="radio radio-primary"
+            />
+            <span v-if="error" class="ml-1 text-error text-sm mt-1">{{
+                error
+            }}</span>
+        </template>
     </div>
 
     <div class="flex flex-col" v-else-if="typeInput === 'select'">
-            <label class="ml-1 label font-bold block w-full">{{ label }}
-                <span class="text-error">*</span>
+        <template v-if="isVisible">
+            <label class="ml-1 label font-bold block w-full"
+                >{{ label }}
+                <span class="text-error" v-if="isRequired">*</span>
             </label>
-            <select class="select w-full" @input="$emit('update:modelValue', $event.target.value)" @blur="$emit('blur')"  :value="modelValue"            >
-                <option  selected>Seleccione uno</option>
-                <option v-for="item in additionalData" :value="item.Id">{{ item.label }}</option>
-
+            <select
+                class="select w-full"
+                @input="$emit('update:modelValue', $event.target.value)"
+                @blur="$emit('blur')"
+                :value="modelValue"
+            >
+                <option selected>Seleccione uno</option>
+                <option v-for="item in additionalData" :value="item.Id">
+                    {{ item.label }}
+                </option>
             </select>
-            <span class="ml-1 label text-sm text-light text-error mt-1" v-if="error" >{{error}}</span>
+            <span
+                class="ml-1 label text-sm text-light text-error mt-1"
+                v-if="error"
+                >{{ error }}</span
+            >
+        </template>
     </div>
 
-    <div class="flex flex-col mt-3" v-else>
-        <label class="ml-1 label font-bold block w-full">{{ label }}
-            <span class="text-error">*</span>
-        </label>
-        <input
-            :value="formatData(modelValue)"
-            @input="$emit('update:modelValue', $event.target.value)"
-            @blur="$emit('blur')"
-            :type="typeInput"
-            class="input w-full border-info rounded-md"
-        />
-        <span v-if="error" class="ml-1 text-error text-sm mt-1">{{ error }}</span>
+    <div class="flex flex-col" v-else>
+        <template v-if="isVisible">
+            <label class="ml-1 label font-bold block w-full"
+                >{{ label }}
+                <span class="text-error" v-if="isRequired">*</span>
+            </label>
+            <input
+                :value="formatData(modelValue)"
+                @input="$emit('update:modelValue', $event.target.value)"
+                @blur="$emit('blur')"
+                :type="typeInput"
+                class="input w-full border-info rounded-md"
+            />
+            <span v-if="error" class="ml-1 text-error text-sm mt-1">{{
+                error
+            }}</span>
+        </template>
     </div>
 </template>

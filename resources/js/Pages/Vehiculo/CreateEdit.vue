@@ -13,6 +13,8 @@ import ImageCarroucelComponent from '../Common/Components/ImageCarroucelComponen
 import FormFiedlsComponent from '../Common/Components/FormFiedlsComponent.vue';
 import CustomInputComponent from '../Common/Components/CustomInputComponent.vue';
 import CustomTemplateForm from '../Common/Components/CustomTemplateForm.vue';
+import { UseVehiclesConf } from '../Common/Composables/config-fields-composable';
+import { useUserInfo } from '../Common/Composables/common-composable';
 
 
 const props = defineProps({vehiculo: Object, asCreate: true, asShow: false})
@@ -34,18 +36,18 @@ const {values,  defineField, meta } =useForm({
     initialValues: props.vehiculo
 })
 
+const {isAdmin} = useUserInfo()
 
-const state  = (state) => ({error: state.errors[0], label: state.path})
+const {conf} = UseVehiclesConf()
 
-
-const [marca,marcaAttr] = defineField('Marca', {props: state})
-const [modelo, modeloAttr] =defineField('Modelo', {props: state})
-const [anio, anioAttr] =defineField('Anio',{props: state})
-const [placa, placaAttr] =defineField('Placa',{props: state})
-const [alias, aliasAttr] =defineField('Alias',{props: state})
-const [kilometraje, kilometrajeAttr] =defineField('Kilometraje',{props: state})
-const [tipo, tipoAttr] =defineField('TipoNeumatico',{props: state})
-const [precion, precionAttr] =defineField('PrecionNeumatico',{props: state})
+const [marca,marcaAttr] = defineField('Marca', {props: (state)=> conf(state)})
+const [modelo, modeloAttr] =defineField('Modelo', {props: (state)=> conf(state)})
+const [anio, anioAttr] =defineField('Anio',{props: (state)=> conf(state)})
+const [placa, placaAttr] =defineField('Placa',{props: (state)=> conf(state, null, null, [false], true, isAdmin.value)})
+const [alias, aliasAttr] =defineField('Alias',{props: (state)=> conf(state)})
+const [kilometraje, kilometrajeAttr] =defineField('Kilometraje',{props: (state)=> conf(state)})
+const [tipo, tipoAttr] =defineField('TipoNeumatico',{props: (state)=> conf(state)})
+const [precion, precionAttr] =defineField('PrecionNeumatico',{props: (state)=> conf(state)})
 
 anioAttr.value.typeInput = 'number'
 kilometrajeAttr.value.typeInput = 'number'

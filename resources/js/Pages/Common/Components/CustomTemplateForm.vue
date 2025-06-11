@@ -140,7 +140,7 @@ else
 
     <div class="flex">
         <div
-            class="hidden  md:grid grid-cols-1 sm:grid-cols-2 shadow-lg rounded-2xl bg-base-100"
+            class="hidden  md:grid grid-cols-1 md:grid-cols-2 shadow-lg rounded-2xl bg-base-100"
         >
             <div class="w-full h-full rounded-xl">
                 <fieldset class="fieldset rounded-box w-full p-4">
@@ -148,7 +148,7 @@ else
                         :class="[
                             'text-lg',
                             'pt-0',
-                            'md:pt-25',
+                            'md:pt-12',
                             'gap-2',
                             'grid',
                             'grid-cols-1',
@@ -166,6 +166,7 @@ else
 
             <div class="rounded-xl">
                 <ImageCarroucelComponent
+                    indicator="lg"
                     @emitImages="captureImages"
                     :images="images"
                     :imagesToSend="imagesToSend"

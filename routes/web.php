@@ -47,6 +47,11 @@ Route::resource( 'servicios' , ServiciosController::class)
 
 
 
+Route::middleware(['auth'])->group( function (){
+
+        Route::get('vehiculos/{vehiculo}/showAsJson', [VehiculosController::class, 'showAsJson']);
+});
+
 Route::resource( 'vehiculos' , VehiculosController::class)
     ->middleware('auth')
     ->middlewareFor(

@@ -109,6 +109,18 @@ class VehiculosController extends Controller
         ]);
     }
 
+    public function showAsJson(Vehiculo $vehiculo)
+    {
+        //
+        // return view('vehiculos.show', compact('vehiculo'));
+        $vehiculo->load('imagenes');
+        $vehiculo->imagenes->each( function($image) {
+            $image->Name = asset("files/{$image->Name}");
+            return $image;
+        });
+       return response($vehiculo);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

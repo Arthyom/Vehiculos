@@ -9,7 +9,8 @@ const emiter = defineEmits('emitImages')
 const props = defineProps({
      images :Object,
      filesToSend : Object,
-     imagesToSend: Object
+     imagesToSend: Object,
+     indicator: String
 })
 
 const {vehicleNoImage, serviceNoImage, providerNoImage} = useDefaultCommon()
@@ -90,12 +91,12 @@ emiter('emitImages', props.imagesToSend, props.filesToSend)
 <template>
     <div class="w-full">
         <div class="m-2">
-            <div class=" carousel w-full  ">
+            <div class="carousel w-full">
                 <template v-if="imagesToSend.length > 0">
                     <template v-for="(image, i) in imagesToSend">
                         <div
                             v-if="!image.includes('blob')"
-                            :id="`item${i}`"
+                            :id="`item${i}${indicator}`"
                             class=" carousel-item w-full bg-info"
                         >
                             <img
@@ -106,7 +107,7 @@ emiter('emitImages', props.imagesToSend, props.filesToSend)
                         </div>
                         <div
                             v-else
-                            :id="`item${i}`"
+                            :id="`item${i}${indicator}`"
                             class="carousel-item w-full   "
                         >
                             <img
@@ -132,7 +133,7 @@ emiter('emitImages', props.imagesToSend, props.filesToSend)
             >
                 <a
                     class="btn btn-xs"
-                    :href="`#item${i}`"
+                    :href="`#item${i}${indicator}`"
                     v-for="(image, i) in imagesToSend"
                     >{{ i + 1 }}</a
                 >
