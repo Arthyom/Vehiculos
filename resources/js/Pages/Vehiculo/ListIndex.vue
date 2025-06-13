@@ -39,7 +39,7 @@ const {isAdmin} = useUserInfo()
                     </td>
                     <td>
                         <div class="flex">
-                            <div class="flex grow   items-center gap-3">
+                            <div class="flex flex-col xl:flex-row  w-full items-center gap-3">
                                 <div class="avatar">
                                     <div class="mask mask-squircle h-25 w-25">
                                         <template v-if="!!vehicle.imagenes">

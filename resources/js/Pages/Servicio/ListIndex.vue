@@ -44,23 +44,25 @@ const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
                         {{ i + 1 }}
                     </td>
                     <td>
-                        <div class="flex flex-col gap-2">
-                            <div
-                                :class="[
-                                    'badge',
-                                    service.Pagado
-                                        ? 'badge-success'
-                                        : 'badge-error',
-                                ]"
-                            ></div>
-                            <div
-                                :class="[
-                                    'badge',
-                                    service.Subsidiado
-                                        ? 'badge-success'
-                                        : 'badge-error',
-                                ]"
-                            ></div>
+                        <div class="flex flex-row justify-center gap-2 0">
+                            <div class="flex flex-col gap-2">
+                                <div
+                                    :class="[
+                                        'badge',
+                                        service.Pagado
+                                            ? 'badge-success'
+                                            : 'badge-error',
+                                    ]"
+                                ></div>
+                                <div
+                                    :class="[
+                                        'badge',
+                                        service.Subsidiado
+                                            ? 'badge-success'
+                                            : 'badge-error',
+                                    ]"
+                                ></div>
+                            </div>
                         </div>
                     </td>
                     <td>
@@ -140,7 +142,7 @@ const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
                     </td>
                     <td>
                         <span class="badge badge-info">{{
-                            service.Total
+                            vueNumberFormat(service.Total, { prefix: "$" })
                         }}</span>
                     </td>
 
