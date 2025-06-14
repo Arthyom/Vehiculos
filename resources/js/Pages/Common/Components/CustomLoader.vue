@@ -7,6 +7,7 @@ import { computed, onBeforeUpdate, onMounted,  onUpdated,  ref,  useTemplateRef,
     const dialog = useTemplateRef('dialog')
 
     watch( () => (props.showDialog), (show) =>{
+
         if(show)
             dialog.value.showModal()
         else

@@ -3,17 +3,34 @@ import { Link } from '@inertiajs/vue3';
 import DefaultLayout from '../Common/Layouts/DefaultLayout.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import IndexTitle  from '../Common/Components/IndexTitle.vue'
+
 import LinksTable from '../Common/Components/LinksTable.vue';
 import { useDefaultCommon, useUserInfo } from '../Common/Composables/common-composable';
 import TableWrapper from '../Common/Components/TableWrapper.vue';
+import CustomLoader from '../Common/Components/CustomLoader.vue';
+import { ref } from 'vue';
 
 const {vehicleNoImage} = useDefaultCommon()
+const showLoader = ref(false)
+
 defineProps({allVehicles:Object , sessionState: Object})
 const {isAdmin} = useUserInfo()
+
+const show = (e) =>{
+    showLoader.value = e;
+
+    console.log('eeeeee', showLoader.value)
+}
+
 </script>
+
+
 
 <template>
     <DefaultLayout>
+
+        <CustomLoader :showDialog="showLoader"></CustomLoader>
+
         <IndexTitle
             to="create"
             label="Vehiculos"
@@ -88,7 +105,7 @@ const {isAdmin} = useUserInfo()
                     <td>{{ vueNumberFormat(vehicle.Kilometraje) }} KM</td>
 
                     <th>
-                        <LinksTable to="vehiculos" :item="vehicle"></LinksTable>
+                        <LinksTable @showLoader="show" to="vehiculos" :item="vehicle"></LinksTable>
                     </th>
                 </tr>
             </tbody>

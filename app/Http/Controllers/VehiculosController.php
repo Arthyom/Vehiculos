@@ -165,5 +165,12 @@ class VehiculosController extends Controller
     public function destroy(Vehiculo $vehiculo)
     {
         //
+        try {
+            $this->vehiculoProvider->delete($vehiculo);
+            return to_route('vehiculos.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect(route('vehiculos.index'))->withError($th);
+        }
     }
 }

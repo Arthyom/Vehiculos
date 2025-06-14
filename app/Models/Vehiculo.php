@@ -9,10 +9,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Vehiculo
- * 
+ *
  * @property int $id
  * @property Carbon $Created_At
  * @property string $Marca
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $Alias
  * @property int|null $Kilometraje
  * @property Carbon|null $Updated_At
- * 
+ *
  * @property Collection|Servicio[] $servicios
  * @property Collection|Imagen[] $imagenes
  *
@@ -32,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Vehiculo extends Model
 {
+    use SoftDeletes;
+
 	protected $table = 'Vehiculo';
 	public $timestamps = true;
 

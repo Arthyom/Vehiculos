@@ -23,7 +23,7 @@
         <div class="sm:tooltip" data-tip="Eliminar" v-if="isAdmin">
             <Link
                 class="btn btn-error btn-xs"
-                :href="`/${to}/${props?.item?.id}/edit`"
+                @click="sendDelete"
             >
                 <font-awesome-icon icon="fa-solid fa-trash"></font-awesome-icon>
             </Link>
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
 import { useUserInfo } from "../Composables/common-composable";
 
 const props = defineProps({
@@ -41,4 +41,16 @@ const props = defineProps({
 });
 
 const { isAdmin } = useUserInfo();
+
+
+const emit = defineEmits(['showLoader'])
+
+const sendDelete = () =>{
+    emit('showLoader', true);
+    router.delete(`/${props.to}/${props.item.id}`,{
+        onError: () => emit('showLoader', false),
+        onSuccess: () => emit('showLoader', false),
+        onFinish: () => emit('showLoader', false)
+    })
+}
 </script>
