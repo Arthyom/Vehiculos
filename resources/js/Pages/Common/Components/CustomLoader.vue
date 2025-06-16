@@ -1,8 +1,7 @@
 <script lang="js" setup>
 import { computed, onBeforeUpdate, onMounted,  onUpdated,  ref,  useTemplateRef, watch, watchEffect } from 'vue';
 
-    const props =   defineProps({showDialog: false,  title: {default: 'Cargando'}, message: {default: 'Espere por favor'}})
-
+    const props =   defineProps({showDialog: Boolean,  title: {default: 'Cargando'}, message: {default: 'Espere por favor'}})
 
     const dialog = useTemplateRef('dialog')
 

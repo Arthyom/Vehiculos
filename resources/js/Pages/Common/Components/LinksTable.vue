@@ -21,12 +21,12 @@
         </div>
 
         <div class="sm:tooltip" data-tip="Eliminar" v-if="isAdmin">
-            <Link
+            <button
                 class="btn btn-error btn-xs"
                 @click="sendDelete"
             >
                 <font-awesome-icon icon="fa-solid fa-trash"></font-awesome-icon>
-            </Link>
+            </button>
         </div>
     </div>
 </template>
@@ -34,6 +34,7 @@
 <script lang="ts" setup>
 import { Link, router } from "@inertiajs/vue3";
 import { useUserInfo } from "../Composables/common-composable";
+import { ref, watch, watchEffect } from "vue";
 
 const props = defineProps({
     item: Object,
@@ -43,14 +44,34 @@ const props = defineProps({
 const { isAdmin } = useUserInfo();
 
 
-const emit = defineEmits(['showLoader'])
+const emit = defineEmits(['emitShow' ])
 
 const sendDelete = () =>{
-    emit('showLoader', true);
     router.delete(`/${props.to}/${props.item.id}`,{
-        onError: () => emit('showLoader', false),
-        onSuccess: () => emit('showLoader', false),
-        onFinish: () => emit('showLoader', false)
+        onBefore: (visit) =>{
+            console.log('bf', visit)
+            emit('emitShow',true)
+        },
+
+        // onStart: (visit) =>{
+        //     console.log('st', visit)
+        //     emit('emitShow', true)
+        // },
+        // onSuccess: (page) =>{
+        //     console.log('sc', page)
+        //     emit('emitShow', false)
+        // },
+        onError:(errors) =>{
+            console.log('errs', errors)
+            emit('emitShow', false)
+        },
+        onFinish: (visit) =>{
+            console.log('fd', visit)
+            emit('emitShow', false)
+        }
     })
 }
+
+
+
 </script>
