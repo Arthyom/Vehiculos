@@ -1,5 +1,5 @@
 <script lang="js" setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import DefaultLayout from '../Common/Layouts/DefaultLayout.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import IndexTitle from '../Common/Components/IndexTitle.vue'
@@ -8,14 +8,30 @@ import LinksTable from '../Common/Components/LinksTable.vue';
 import { useDefaultCommon, useUserInfo } from '../Common/Composables/common-composable';
 import TableWrapper from '../Common/Components/TableWrapper.vue';
 import CustomLoader from '../Common/Components/CustomLoader.vue';
-import { ref } from 'vue';
+import { computed, onMounted, ref, toRef, toRefs, watch, watchEffect } from 'vue';
 import TableViewer from '../Common/Components/TableViewer.vue';
+import { useVehicleState } from '../Common/Composables/use-vehicle-state-composable';
 
 const { vehicleNoImage } = useDefaultCommon()
 const showLoader = ref(false)
 
 defineProps({ allVehicles: Object, sessionState: Object })
 const { isAdmin } = useUserInfo()
+
+
+const deleteItem = (id) =>{
+    router.delete(`/vehiculos/${id}`,{
+        onBefore: (visit) =>{
+            showLoader.value = true
+        },
+        onError:(errors) =>{
+            showLoader.value = false
+        },
+        onFinish: (visit) =>{
+            showLoader.value = false
+        }
+    })
+}
 
 </script>
 
@@ -86,7 +102,7 @@ const { isAdmin } = useUserInfo()
                         <td>{{ vueNumberFormat(vehicle.Kilometraje) }} KM</td>
 
                         <th>
-                            <LinksTable @emitShow="(e) => { showLoader = e }" to="vehiculos" :item="vehicle">
+                            <LinksTable @emit-delete="deleteItem(vehicle.id)" to="vehiculos" :item="vehicle">
                             </LinksTable>
                         </th>
                     </tr>

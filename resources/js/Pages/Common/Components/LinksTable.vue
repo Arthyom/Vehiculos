@@ -44,34 +44,35 @@ const props = defineProps({
 const { isAdmin } = useUserInfo();
 
 
-const emit = defineEmits(['emitShow' ])
+const emit = defineEmits(['emitDelete' ])
 
 const sendDelete = () =>{
-    router.delete(`/${props.to}/${props.item.id}`,{
-        onBefore: (visit) =>{
-            console.log('bf', visit)
-            emit('emitShow',true)
-        },
+    emit('emitDelete', true)
+//     router.delete(`/${props.to}/${props.item.id}`,{
+//         onBefore: (visit) =>{
+//             console.log('bf', visit);
+//             emit('emitDelete',true);
+//         },
 
-        // onStart: (visit) =>{
-        //     console.log('st', visit)
-        //     emit('emitShow', true)
-        // },
-        // onSuccess: (page) =>{
-        //     console.log('sc', page)
-        //     emit('emitShow', false)
-        // },
-        onError:(errors) =>{
-            console.log('errs', errors)
-            emit('emitShow', false)
-        },
-        onFinish: (visit) =>{
-            console.log('fd', visit)
-            emit('emitShow', false)
-        }
-    })
+//         // onStart: (visit) =>{
+//         //     console.log('st', visit)
+//         //     emit('emitShow', true)
+//         // },
+//         // onSuccess: (page) =>{
+//         //     console.log('sc', page)
+//         //     emit('emitShow', false)
+//         // },
+//         onError:(errors) =>{
+//             console.log('errs', errors);
+//             emit('emitDelete', false);
+//         },
+//         onFinish: (visit) =>{
+//             console.log('fd', visit);
+//             emit('emitDelete', false);
+//         }
+//     })
+// }
 }
-
 
 
 </script>
