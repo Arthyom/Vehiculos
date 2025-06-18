@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
 import VueNumberFormat from 'vue-number-format'
+import { createPinia } from "pinia";
 
 createInertiaApp({
     resolve: (name) => {
@@ -20,10 +21,11 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         /* add icons to the library */
         library.add(fas);
-
+        const pinia = createPinia();
 
 
         createApp({ render: () => h(App, props) })
+            .use(pinia)
             .use(VueNumberFormat, {prefix: '', decimal: '.', thousand: ','})
             .use(plugin)
             .component('font-awesome-icon', FontAwesomeIcon)

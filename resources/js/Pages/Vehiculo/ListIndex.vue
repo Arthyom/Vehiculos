@@ -10,7 +10,7 @@ import TableWrapper from '../Common/Components/TableWrapper.vue';
 import CustomLoader from '../Common/Components/CustomLoader.vue';
 import { computed, onMounted, ref, toRef, toRefs, watch, watchEffect } from 'vue';
 import TableViewer from '../Common/Components/TableViewer.vue';
-import { useVehicleState } from '../Common/Composables/use-vehicle-state-composable';
+import { useVehiclesStore } from './store/vehiculos.store';
 
 const { vehicleNoImage } = useDefaultCommon()
 const showLoader = ref(false)
@@ -18,20 +18,7 @@ const showLoader = ref(false)
 defineProps({ allVehicles: Object, sessionState: Object })
 const { isAdmin } = useUserInfo()
 
-
-const deleteItem = (id) =>{
-    router.delete(`/vehiculos/${id}`,{
-        onBefore: (visit) =>{
-            showLoader.value = true
-        },
-        onError:(errors) =>{
-            showLoader.value = false
-        },
-        onFinish: (visit) =>{
-            showLoader.value = false
-        }
-    })
-}
+const vs = useVehiclesStore()
 
 </script>
 
@@ -40,11 +27,12 @@ const deleteItem = (id) =>{
 <template>
     <DefaultLayout>
 
+        <h1 class="text-2xl">Vehicle has been deleted? {{ vs.hasDeleted }}</h1>
         <IndexTitle to="create" label="Vehiculos" link="vehiculos" :asIndex="true" :useButton="true"></IndexTitle>
         <TableViewer :items="allVehicles">
 
 
-            <CustomLoader :showDialog="showLoader"></CustomLoader>
+            <CustomLoader :showDialog="vs.hasDeleted"></CustomLoader>
 
             <TableWrapper>
                 <thead class="bg-black font-bold text-white justify-center">
@@ -102,7 +90,7 @@ const deleteItem = (id) =>{
                         <td>{{ vueNumberFormat(vehicle.Kilometraje) }} KM</td>
 
                         <th>
-                            <LinksTable @emit-delete="deleteItem(vehicle.id)" to="vehiculos" :item="vehicle">
+                            <LinksTable  to="vehiculos" :item="vehicle">
                             </LinksTable>
                         </th>
                     </tr>
