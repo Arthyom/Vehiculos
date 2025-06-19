@@ -71,7 +71,7 @@ const formatData = (val) =>{
             >
                 <option selected>Seleccione uno</option>
                 <option v-for="item in additionalData" :value="item.Id">
-                    {{ item.label }}
+                        {{ item.label }}
                 </option>
             </select>
             <span
@@ -80,6 +80,29 @@ const formatData = (val) =>{
                 >{{ error }}</span
             >
         </template>
+    </div>
+
+
+    <div class="flex flex-col  col-span-1 md:col-span-2 " v-else-if="typeInput === 'text-area'">
+        <div v-if="isVisible">
+            <label class="ml-1 label font-bold block w-full"
+                >{{ label }}
+                <span class="text-error" v-if="isRequired">*</span>
+            </label>
+            <textarea
+                cols="4"
+                rows="50"
+                :value="formatData(modelValue)"
+                @input="$emit('update:modelValue', $event.target.value)"
+                @blur="$emit('blur')"
+                :type="typeInput"
+                class="input w-full border-info rounded-md h-18 "
+            >
+            </textarea>
+            <span v-if="error" class="ml-1 text-error text-sm mt-1">{{
+                error
+            }}</span>
+        </div>
     </div>
 
     <div class="flex flex-col" v-else>
@@ -100,4 +123,6 @@ const formatData = (val) =>{
             }}</span>
         </template>
     </div>
+
+
 </template>

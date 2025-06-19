@@ -13,7 +13,7 @@ export const UseVehiclesConf = () =>{
             error: state.errors[0],
             label: label == null ?   state.path : label,
             typeInput,
-            additionalData : [true, ...additionalData],
+            additionalData : [ ...additionalData],
             isRequired,
             isVisible
         })

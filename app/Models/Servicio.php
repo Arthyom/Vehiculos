@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $Proveedor_Id
  * @property int|null $Kilometraje
  * @property string|null $Descripcion
+ * @property string|null $Detalles
  * @property Carbon|null $Updated_At
  * @property float|null $Total
  * @property int|null $Nota_Id
@@ -52,6 +53,7 @@ class Servicio extends Model
 		'Proveedor_Id',
 		'Kilometraje',
 		'Descripcion',
+        'Detalles',
 		'Updated_At',
 		'Total',
         'Pagado',

@@ -114,10 +114,8 @@ const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
                     </td>
 
                     <td>
-                        <p class="font-bold">{{ service.proveedor.Nombre }}</p>
-                        <p class="text-sm opacity-50">
-                            {{ service.proveedor.Alias }}
-                        </p>
+                        <p class="font-bold">{{ service.proveedor.Alias }}</p>
+
                     </td>
 
                     <td>
@@ -132,9 +130,7 @@ const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
                                 new Date(service.Created_At).toLocaleString(
                                     "es-MX",
                                     {
-                                        day: "numeric",
-                                        year: "numeric",
-                                        month: "long",
+                                        dateStyle:'medium'
                                     }
                                 )
                             }}

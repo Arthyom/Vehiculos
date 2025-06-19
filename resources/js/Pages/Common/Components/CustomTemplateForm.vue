@@ -85,7 +85,7 @@ else
         :asIndex="false"
     ></IndexTitle>
 
-    <div class="join join-vertical  flex shad">
+    <div class="join join-vertical  ">
         <div class="flex flex-col md:hidden">
             <div
                 class="collapse join-item bg-base-100 border-base-300 border collapse-arrow"
@@ -138,9 +138,9 @@ else
         </div>
     </div>
 
-    <div class="flex">
+    <div class="flex ">
         <div
-            class="hidden  md:grid grid-cols-1 md:grid-cols-2 shadow-lg rounded-2xl bg-base-100"
+            class="hidden  md:grid grid-cols-1 md:grid-cols-2 shadow-lg rounded-2xl bg-base-100 w-full"
         >
             <div class="w-full h-full rounded-xl">
                 <fieldset class="fieldset rounded-box w-full p-4">

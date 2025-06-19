@@ -26,11 +26,8 @@ const vs = useVehiclesStore()
 
 <template>
     <DefaultLayout>
-
-        <h1 class="text-2xl">Vehicle has been deleted? {{ vs.hasDeleted }}</h1>
         <IndexTitle to="create" label="Vehiculos" link="vehiculos" :asIndex="true" :useButton="true"></IndexTitle>
         <TableViewer :items="allVehicles">
-
 
             <CustomLoader :showDialog="vs.hasDeleted"></CustomLoader>
 

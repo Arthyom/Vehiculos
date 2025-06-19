@@ -36,10 +36,11 @@ const validationSchema = yup.object({
     Vehiculo_Id: yup.number().required(),
     Proveedor_Id: yup.number().required(),
     Kilometraje: yup.number().required(),
-    Descripcion: yup.string().min(10).required(),
+    Descripcion: yup.string().min(10).max(20).required(),
     Total: yup.number().required(),
     Pagado: yup.boolean(),
-    Subsidiado: yup.boolean()
+    Subsidiado: yup.boolean(),
+    Detalles: yup.string()
 })
 
 const {conf} = UseVehiclesConf()
@@ -59,8 +60,10 @@ const [Proveedor_Id,  Proveedor_IdAttr] = defineField('Proveedor_Id', {props: (s
 const [Kilometraje, KilometrajeAttr] = defineField('Kilometraje', {props: (state) => conf(state, 'number')})
 const [Descripcion, DescripcionAttr] = defineField('Descripcion', {props: (state => conf(state))})
 const [Total, TotalAttr] = defineField('Total', {props: (state) => conf( state, 'number')})
-const [Pagado, PagadoAttr] = defineField('Pagado', {props: (state) => conf( state, 'checkbox')})
-const [Subsidiado, SubsidiadoAttr] = defineField('Subsidiado', {props: (state) => conf(state, 'checkbox')})
+const [Pagado, PagadoAttr] = defineField('Pagado', {props: (state) => conf( state, 'checkbox',null,[],false)})
+const [Subsidiado, SubsidiadoAttr] = defineField('Subsidiado', {props: (state) => conf(state, 'checkbox',null,[],false)})
+const [Detalles, DetallesAttr] = defineField('Detalles', {props: (state => conf(state,'text-area',null,[],false))})
+
 
 
 
@@ -72,8 +75,10 @@ const fields = [
 [Kilometraje, KilometrajeAttr],
 [Descripcion, DescripcionAttr],
 [Total, TotalAttr],
+[Detalles, DetallesAttr],
 [Pagado, PagadoAttr],
-[Subsidiado, SubsidiadoAttr]
+[Subsidiado, SubsidiadoAttr],
+
 ]
 
 
