@@ -44,6 +44,7 @@ const sendDelete = () => {
 
 <template>
     <div class="flex flex-row gap-1 justify-center">
+        <slot></slot>
         <div class="sm:tooltip" data-tip="Ver">
             <Link class="btn btn-info btn-xs" :href="`/${to}/${props?.item?.id}`">
             <font-awesome-icon icon="fa-solid fa-eye"></font-awesome-icon>

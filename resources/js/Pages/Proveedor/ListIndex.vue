@@ -5,10 +5,12 @@ import IndexTitle from "../Common/Components/IndexTitle.vue";
 import LinksTable from "../Common/Components/LinksTable.vue";
 import { useDefaultCommon } from "../Common/Composables/common-composable";
 import TableWrapper from "../Common/Components/TableWrapper.vue";
+import { usePage } from "@inertiajs/vue3";
 
 defineProps({ allProviders: Object });
 
 const { providerNoImage } = useDefaultCommon();
+const paginator = usePage().props.paginator;
 </script>
 
 <template>
@@ -21,7 +23,7 @@ const { providerNoImage } = useDefaultCommon();
             :useButton="true"
         ></IndexTitle>
 
-        <TableWrapper>
+        <TableWrapper :paginator="paginator">
             <thead class="bg-black font-bold text-white text-center">
                 <tr>
                     <th>#</th>
@@ -32,7 +34,7 @@ const { providerNoImage } = useDefaultCommon();
                 </tr>
             </thead>
             <tbody class="text-center">
-                <tr v-for="(provider, i) in allProviders">
+                <tr v-for="(provider, i) in paginator.data">
                     <td>
                         {{ i + 1 }}
                     </td>

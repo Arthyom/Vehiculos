@@ -25,14 +25,14 @@ class ServiciosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       $allServices = $this->servicioProvider->index();
+       $perPage = $request->get('per_page') ?? 4;
+       $paginatedData = $this->servicioProvider->paginate($perPage);
 
-    //    return view('servicios.index', compact('allServices'));
 
        return inertia('Servicio/ListIndex', [
-        'allServices' => $allServices
+        'paginator' => $paginatedData
        ]);
     }
 

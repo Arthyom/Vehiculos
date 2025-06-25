@@ -5,10 +5,14 @@ import LinksTable from "../Common/Components/LinksTable.vue";
 import { provide } from "vue";
 import { useDefaultCommon } from "../Common/Composables/common-composable";
 import TableWrapper from "../Common/Components/TableWrapper.vue";
+import { usePage } from "@inertiajs/vue3";
+import PaginatorComponent from "../Common/Components/PaginatorComponent.vue";
 
 defineProps({ allServices: Array });
 
 const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
+
+const paginator = usePage().props.paginator;
 </script>
 
 <template>
@@ -21,28 +25,80 @@ const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
             :useButton="true"
         ></IndexTitle>
 
-        <TableWrapper>
+        <TableWrapper :paginator="paginator">
             <!-- head -->
             <thead class="bg-black font-bold text-white text-center">
                 <tr>
                     <th>#</th>
-                    <th>P/S</th>
-                    <th>Vehiculo</th>
-                    <th>Proveedor</th>
-                    <th>Descripcion</th>
-                    <th>Fecha</th>
-                    <th>Total</th>
+                    <th class="hover:bg-info">
+                        <span>
+                            P/S
+                            <font-awesome-icon
+                                icon="fas fa-sort"
+                                size="xs"
+                                class="ml-1"
+                            />
+                        </span>
+                    </th>
+                    <th class="hover:bg-info">
+                        <span>
+                            Vehiculo
+                            <font-awesome-icon
+                                icon="fas fa-sort"
+                                size="xs"
+                                class="ml-1"
+                            />
+                        </span>
+                    </th>
+                    <th class="hover:bg-info">
+                        <span>
+                            Proveedor
+                            <font-awesome-icon
+                                icon="fas fa-sort"
+                                size="xs"
+                                class="ml-1"
+                            />
+                        </span>
+                    </th>
+                    <th class="hover:bg-info">
+                        <span>
+                            Descripcion
+                            <font-awesome-icon
+                                icon="fas fa-sort"
+                                size="xs"
+                                class="ml-1"
+                            />
+                        </span>
+                    </th>
+                    <th class="hover:bg-info">
+                        <span>
+                            Fecha
+                            <font-awesome-icon
+                                icon="fas fa-sort"
+                                size="xs"
+                                class="ml-1"
+                            />
+                        </span>
+                    </th>
+                    <th class="hover:bg-info">
+                        <span>
+                            Total
+                            <font-awesome-icon
+                                icon="fas fa-sort"
+                                size="xs"
+                                class="ml-1"
+                            />
+                        </span>
+                    </th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody class="text-center">
-                <tr v-for="(service, i) in allServices">
-                    <!-- <pre>
-                            {{ service }}
-                        </pre> -->
+                <tr v-for="(service, i) in paginator.data">
                     <td>
                         {{ i + 1 }}
                     </td>
+
                     <td>
                         <div class="flex flex-row justify-center gap-2 0">
                             <div class="flex flex-col gap-2">
@@ -65,8 +121,62 @@ const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
                             </div>
                         </div>
                     </td>
-                    <td>
-                        <div class="items-center gap-3">
+
+                    <td class="">
+                        <div class=" hidden lg:flex flex-nowrap  items-center gap-2 ">
+                            <div class="avatar  justify-end ">
+                                <div
+                                    class="mask bg-gray-300 mask-squircle h-25 w-25"
+                                >
+                                    <template
+                                        v-if="
+                                            service.vehiculo.imagenes.length > 0
+                                        "
+                                    >
+                                        <img
+                                            @error="
+                                                (e) =>
+                                                    (e.target.src =
+                                                        vehicleNoImage)
+                                            "
+                                            :src="`files/${service.vehiculo.imagenes[0].Name}`"
+                                            alt="Avatar Tailwind CSS Component"
+                                        />
+                                    </template>
+
+                                    <template v-else>
+                                        <img
+                                            @error="
+                                                (e) =>
+                                                    (e.target.src =
+                                                        vehicleNoImage)
+                                            "
+                                            :src="serviceNoImage"
+                                            alt="Avatar Tailwind CSS Component"
+                                        />
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col w-full  shrink-1 items-center  ">
+                                <div class="badge badge-error my-2 ">
+                                    Mecanico
+                                </div>
+                                <div class="font-bold">
+                                    {{ service.vehiculo.Marca }}
+                                    {{ service.vehiculo.Modelo }}
+                                    {{ service.vehiculo.Anio }}
+                                </div>
+                                <div class="text-sm opacity-50">
+                                    {{ service.vehiculo.Alias }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col lg:hidden items-center gap-3 ">
+                            <div class="badge badge-error my-2">
+                                    Mecanico
+                                </div>
                             <div class="avatar">
                                 <div
                                     class="mask bg-gray-300 mask-squircle h-25 w-25"
@@ -100,7 +210,8 @@ const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
                                     </template>
                                 </div>
                             </div>
-                            <div>
+
+                            <div class="">
                                 <div class="font-bold">
                                     {{ service.vehiculo.Marca }}
                                     {{ service.vehiculo.Modelo }}
@@ -115,7 +226,6 @@ const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
 
                     <td>
                         <p class="font-bold">{{ service.proveedor.Alias }}</p>
-
                     </td>
 
                     <td>
@@ -130,7 +240,7 @@ const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
                                 new Date(service.Created_At).toLocaleString(
                                     "es-MX",
                                     {
-                                        dateStyle:'medium'
+                                        dateStyle: "medium",
                                     }
                                 )
                             }}

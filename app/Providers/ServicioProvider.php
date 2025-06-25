@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Str;
 use Carbon\Carbon;
 use App\Models\Nota;
@@ -77,6 +78,12 @@ class ServicioProvider extends ServiceProvider
        return Servicio::with(['vehiculo', 'proveedor', 'vehiculo.imagenes' ])
        ->get();
     }
+
+    public function paginate($perPage = 4): LengthAwarePaginator {
+        return Servicio::with(['vehiculo', 'proveedor', 'vehiculo.imagenes' ])
+        ->paginate($perPage);
+        // ->get();
+     }
 
     private function insertNota(Request $request) : Nota | null{
         if( $request->Imagen){

@@ -15,14 +15,17 @@ class ProveedoresController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         session()->put(['session'=> 1, 'moresessions' =>2 ]);
-        $allProviders = $this->proveedorProvider->index();
+
+        $perPage = $request->get('per_page') ?? 4;
+
+        $paginator = $this->proveedorProvider->paginate($perPage);
         // return view('proveedores.index', compact('allProviders'));
         return inertia('Proveedor/ListIndex', [
-            'allProviders' => $allProviders
+            'paginator' => $paginator
         ]);
     }
 
