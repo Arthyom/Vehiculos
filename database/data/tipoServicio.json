@@ -1,0 +1,44 @@
+[
+	{
+		"id" : 1,
+		"created_at" : null,
+		"updated_at" : null,
+		"Descripcion" : "Mecanico",
+		"Codigo" : 1
+	},
+	{
+		"id" : 2,
+		"created_at" : null,
+		"updated_at" : null,
+		"Descripcion" : "Electrico",
+		"Codigo" : 2
+	},
+	{
+		"id" : 3,
+		"created_at" : null,
+		"updated_at" : null,
+		"Descripcion" : "Estetico",
+		"Codigo" : 3
+	},
+	{
+		"id" : 4,
+		"created_at" : null,
+		"updated_at" : null,
+		"Descripcion" : "Ludico",
+		"Codigo" : 4
+	},
+	{
+		"id" : 5,
+		"created_at" : null,
+		"updated_at" : null,
+		"Descripcion" : "Afinacion",
+		"Codigo" : 5
+	},
+	{
+		"id" : 6,
+		"created_at" : null,
+		"updated_at" : null,
+		"Descripcion" : "Verificacion",
+		"Codigo" : 6
+	}
+]

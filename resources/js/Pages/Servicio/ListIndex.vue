@@ -13,6 +13,41 @@ defineProps({ allServices: Array });
 const { serviceNoImage, vehicleNoImage } = useDefaultCommon();
 
 const paginator = usePage().props.paginator;
+
+const tipoServicioColor = (tipoServicio) =>{
+
+    let color = 'badge-'
+    switch (tipoServicio.Codigo) {
+        case 1:
+        color += 'primary'
+        break;
+
+        case 2:
+        color += 'info'
+        break;
+
+        case 3:
+        color += 'warning'
+        break;
+
+        case 4:
+        color += 'success'
+        break;
+
+        case 5:
+        color += 'error'
+        break;
+
+        case 6:
+        color += 'accent'
+        break;
+
+        default:
+        color += 'neutral'
+        break;
+    }
+    return color
+}
 </script>
 
 <template>
@@ -95,6 +130,7 @@ const paginator = usePage().props.paginator;
             </thead>
             <tbody class="text-center">
                 <tr v-for="(service, i) in paginator.data">
+
                     <td>
                         {{ i + 1 }}
                     </td>
@@ -159,9 +195,16 @@ const paginator = usePage().props.paginator;
                             </div>
 
                             <div class="flex flex-col w-full  shrink-1 items-center  ">
-                                <div class="badge badge-error my-2 ">
-                                    Mecanico
-                                </div>
+                                <template v-if="service.tipo_servicio">
+                                    <div class="badge my-2" :class="tipoServicioColor(service.tipo_servicio)">
+                                        {{ service.tipo_servicio.Descripcion }}
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    <div class="badge my-2 badge-neutral">
+                                        No definido
+                                    </div>
+                                </template>
                                 <div class="font-bold">
                                     {{ service.vehiculo.Marca }}
                                     {{ service.vehiculo.Modelo }}
@@ -174,9 +217,16 @@ const paginator = usePage().props.paginator;
                         </div>
 
                         <div class="flex flex-col lg:hidden items-center gap-3 ">
-                            <div class="badge badge-error my-2">
-                                    Mecanico
-                                </div>
+                            <template v-if="service.tipo_servicio">
+                                    <div class="badge my-2" :class="tipoServicioColor(service.tipo_servicio)">
+                                        {{ service.tipo_servicio.Descripcion }}
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    <div class="badge my-2 badge-neutral">
+                                        No definido
+                                    </div>
+                                </template>
                             <div class="avatar">
                                 <div
                                     class="mask bg-gray-300 mask-squircle h-25 w-25"

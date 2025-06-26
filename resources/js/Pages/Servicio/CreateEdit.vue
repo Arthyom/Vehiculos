@@ -26,8 +26,9 @@ import DefaultLayout from '../Common/Layouts/DefaultLayout.vue';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import { UseVehiclesConf } from '../Common/Composables/config-fields-composable';
+import { object } from 'yup';
 
-const props = defineProps({servicio: Object, vehicles: Object, providers: Object, asCreate: true, asShow: false})
+const props = defineProps({servicio: Object, tipoServicio:Object, vehicles: Object, providers: Object, asCreate: true, asShow: false})
 
 
 const validationSchema = yup.object({
@@ -40,11 +41,13 @@ const validationSchema = yup.object({
     Total: yup.number().required(),
     Pagado: yup.boolean(),
     Subsidiado: yup.boolean(),
-    Detalles: yup.string()
+    Detalles: yup.string(),
+    TipoServicio_Id: yup.number().required()
 })
 
 const {conf} = UseVehiclesConf()
 
+console.log('tipos', props.tipoServicio)
 
 
 const {values,  defineField, meta } =useForm({
@@ -63,7 +66,7 @@ const [Total, TotalAttr] = defineField('Total', {props: (state) => conf( state, 
 const [Pagado, PagadoAttr] = defineField('Pagado', {props: (state) => conf( state, 'checkbox',null,[],false)})
 const [Subsidiado, SubsidiadoAttr] = defineField('Subsidiado', {props: (state) => conf(state, 'checkbox',null,[],false)})
 const [Detalles, DetallesAttr] = defineField('Detalles', {props: (state => conf(state,'text-area',null,[],false))})
-
+const [TipoServicio_Id, TipoServicio_IdAttr] = defineField('TipoServicio_Id', {props: (state) => conf(state,  'select', 'Tipo Servicio', props.tipoServicio)})
 
 
 
@@ -72,13 +75,13 @@ const fields = [
 [Created_At,  Created_AtAttr],
 [Vehiculo_Id, Vehiculo_IdAttr],
 [Proveedor_Id,  Proveedor_IdAttr],
+[TipoServicio_Id, TipoServicio_IdAttr],
 [Kilometraje, KilometrajeAttr],
 [Descripcion, DescripcionAttr],
 [Total, TotalAttr],
 [Detalles, DetallesAttr],
 [Pagado, PagadoAttr],
 [Subsidiado, SubsidiadoAttr],
-
 ]
 
 

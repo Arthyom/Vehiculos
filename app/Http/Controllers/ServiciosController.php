@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TipoServicio;
 use Session;
 use ErrorException;
 use App\Models\Servicio;
@@ -56,6 +57,14 @@ class ServiciosController extends Controller
                     'label' => "{$vehicle->Marca} {$vehicle->Modelo} {$vehicle->Anio} - {$vehicle->Alias}"
                 ];
             } );
+
+        $allServiceTypes = TipoServicio::all()
+            ->map( function ($ts){
+                return[
+                    'Id' => $ts->id,
+                    'label' => $ts->Descripcion
+                ];
+            });
         $servicio = new Servicio();
 
         // return view('servicios.create',
@@ -66,6 +75,7 @@ class ServiciosController extends Controller
             'servicio' => $servicio,
             'vehicles' => $allVehicles,
             'providers' => $allProviders,
+            'tipoServicio' => $allServiceTypes,
             'asCreate' => true
         ]);
     }
@@ -110,6 +120,14 @@ class ServiciosController extends Controller
             ];
         } );
 
+        $allServiceTypes = TipoServicio::all()
+            ->map( function ($ts){
+                return[
+                    'Id' => $ts->id,
+                    'label' => $ts->Descripcion
+                ];
+            });
+
         $servicio->load('nota');
 
     // return view('servicios.create',
@@ -120,6 +138,7 @@ class ServiciosController extends Controller
             'servicio' => $servicio,
             'vehicles' => $allVehicles,
             'providers' => $allProviders,
+            'tipoServicio' => $allServiceTypes,
             'asShow' => true
         ]);
     }
@@ -144,6 +163,14 @@ class ServiciosController extends Controller
                 ];
             } );
 
+        $allServiceTypes = TipoServicio::all()
+            ->map( function ($ts){
+                return[
+                    'Id' => $ts->id,
+                    'label' => $ts->Descripcion
+                ];
+            });
+
         $servicio->load('nota');
 
         // return view('servicios.create',
@@ -154,6 +181,7 @@ class ServiciosController extends Controller
             'servicio' => $servicio,
             'vehicles' => $allVehicles,
             'providers' => $allProviders,
+            'tipoServicio' => $allServiceTypes,
             'asCreate' => false
         ]);
     }

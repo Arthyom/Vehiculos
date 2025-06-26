@@ -18,16 +18,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $Proveedor_Id
  * @property int|null $Kilometraje
  * @property string|null $Descripcion
- * @property string|null $Detalles
  * @property Carbon|null $Updated_At
  * @property float|null $Total
  * @property int|null $Nota_Id
  * @property bool $Pagado
  * @property bool $Subsidiado
-
+ * @property string|null $Detalles
+ * @property int|null $TipoServicio_Id
  *
- * @property Nota|null $nota
+ * @property Nota|null $notum
  * @property Proveedor $proveedor
+ * @property TipoServicio|null $tipo_servicio
  * @property Vehiculo $vehiculo
  *
  * @package App\Models
@@ -35,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
 class Servicio extends Model
 {
 	protected $table = 'Servicio';
-	public $timestamps = false;
+	public $timestamps = true;
 
 	protected $casts = [
 		'Created_At' => 'datetime',
@@ -44,7 +45,10 @@ class Servicio extends Model
 		'Kilometraje' => 'int',
 		'Updated_At' => 'datetime',
 		'Total' => 'float',
-		'Nota_Id' => 'int'
+		'Nota_Id' => 'int',
+		'Pagado' => 'bool',
+		'Subsidiado' => 'bool',
+		'TipoServicio_Id' => 'int'
 	];
 
 	protected $fillable = [
@@ -53,12 +57,13 @@ class Servicio extends Model
 		'Proveedor_Id',
 		'Kilometraje',
 		'Descripcion',
-        'Detalles',
 		'Updated_At',
 		'Total',
-        'Pagado',
-        'Subsidiado',
-		'Nota_Id'
+		'Nota_Id',
+		'Pagado',
+		'Subsidiado',
+		'Detalles',
+		'TipoServicio_Id'
 	];
 
 	public function nota()
@@ -69,6 +74,11 @@ class Servicio extends Model
 	public function proveedor()
 	{
 		return $this->belongsTo(Proveedor::class, 'Proveedor_Id');
+	}
+
+	public function tipo_servicio()
+	{
+		return $this->belongsTo(TipoServicio::class, 'TipoServicio_Id');
 	}
 
 	public function vehiculo()

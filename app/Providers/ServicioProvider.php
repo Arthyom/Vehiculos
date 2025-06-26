@@ -80,7 +80,7 @@ class ServicioProvider extends ServiceProvider
     }
 
     public function paginate($perPage = 4): LengthAwarePaginator {
-        return Servicio::with(['vehiculo', 'proveedor', 'vehiculo.imagenes' ])
+        return Servicio::with(['vehiculo', 'proveedor', 'vehiculo.imagenes', 'tipo_servicio' ])
         ->paginate($perPage);
         // ->get();
      }

@@ -4,6 +4,8 @@ import CustomTemplateForm from '../Common/Components/CustomTemplateForm.vue';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import DefaultLayout from '../Common/Layouts/DefaultLayout.vue';
+import { useUserInfo } from '../Common/Composables/common-composable';
+import { UseVehiclesConf } from '../Common/Composables/config-fields-composable';
 
 const props = defineProps({proveedor: Object, asCreate: true, asShow: false})
 
@@ -19,10 +21,15 @@ const {defineField, meta, values}  = useForm({
     validationSchema,
     initialValues: props.proveedor
 })
-const [alias, aliasAttr] = defineField('Alias' , {props:state})
-const [nombre, nombreAttr] = defineField('Nombre', {props:state})
-const [descripcion, descripcionAttr ] = defineField('Descripcion', {props:state})
-const [direccion, direccionAttr] = defineField('Direccion', {props:state})
+
+const {isAdmin} = useUserInfo()
+
+const {conf} = UseVehiclesConf()
+
+const [alias, aliasAttr] = defineField('Alias' , {props: (state)=>conf(state)})
+const [nombre, nombreAttr] = defineField('Nombre', {props: (state)=>conf(state)})
+const [descripcion, descripcionAttr ] = defineField('Descripcion', {props: (state)=>conf(state, 'text-area')})
+const [direccion, direccionAttr] = defineField('Direccion', {props: (state)=>conf(state, 'text-area')})
 
 const images = props.proveedor.imagenes || []
 const imagesToSend = ref([... images.map(i => i.Name)])
@@ -52,9 +59,9 @@ const fields = [
             :fields = "fields"
             :meta="meta"
             :initialValues="values"
-            :formCols="1"
+            :formCols="2"
             >
-            </CustomTemplateForm>
+        </CustomTemplateForm>
     </DefaultLayout>
 </template>
 
