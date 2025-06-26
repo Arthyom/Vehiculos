@@ -75,7 +75,7 @@ const tipoServicioColor = (tipoServicio) =>{
                 <tr>
                     <th>#</th>
                     <th class="hover:bg-info">
-                        <span>
+                        <span class="hover:cursor-pointer hover:underline">
                             P/S
                             <font-awesome-icon
                                 icon="fas fa-sort"
@@ -85,7 +85,7 @@ const tipoServicioColor = (tipoServicio) =>{
                         </span>
                     </th>
                     <th class="hover:bg-info">
-                        <span>
+                        <span class="hover:cursor-pointer hover:underline">
                             Vehiculo
                             <font-awesome-icon
                                 icon="fas fa-sort"
@@ -95,7 +95,7 @@ const tipoServicioColor = (tipoServicio) =>{
                         </span>
                     </th>
                     <th class="hover:bg-info">
-                        <span>
+                        <span class="hover:cursor-pointer hover:underline">
                             Proveedor
                             <font-awesome-icon
                                 icon="fas fa-sort"
@@ -105,7 +105,7 @@ const tipoServicioColor = (tipoServicio) =>{
                         </span>
                     </th>
                     <th class="hover:bg-info">
-                        <span>
+                        <span class="hover:cursor-pointer hover:underline">
                             Descripcion
                             <font-awesome-icon
                                 icon="fas fa-sort"
@@ -115,7 +115,7 @@ const tipoServicioColor = (tipoServicio) =>{
                         </span>
                     </th>
                     <th class="hover:bg-info">
-                        <span>
+                        <span class="hover:cursor-pointer hover:underline">
                             Fecha
                             <font-awesome-icon
                                 icon="fas fa-sort"
@@ -125,7 +125,7 @@ const tipoServicioColor = (tipoServicio) =>{
                         </span>
                     </th>
                     <th class="hover:bg-info">
-                        <span>
+                        <span class="hover:cursor-pointer hover:underline">
                             Total
                             <font-awesome-icon
                                 icon="fas fa-sort"

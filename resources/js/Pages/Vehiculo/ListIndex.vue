@@ -11,13 +11,16 @@ import TableViewer from '../Common/Components/TableViewer.vue';
 
 const { vehicleNoImage } = useDefaultCommon()
 
-defineProps({ allVehicles: Object, sessionState: Object })
+defineProps({ allVehicles: Object, sessionState: Object , paginator: Object})
 const { isAdmin } = useUserInfo()
 
 </script>
 
 <template>
+
+
     <DefaultLayout>
+
         <IndexTitle
             to="create"
             label="Vehiculos"
@@ -25,29 +28,46 @@ const { isAdmin } = useUserInfo()
             :asIndex="true"
             :useButton="true"
         ></IndexTitle>
-        <TableViewer :items="allVehicles">
+        <TableViewer :items="paginator.data">
 
-            <TableWrapper>
+            <TableWrapper :paginator="paginator">
                 <thead class="bg-black font-bold text-white justify-center">
                     <tr class="text-center">
                         <th>#</th>
-                        <th>Vehiculo</th>
-                        <th v-if="isAdmin">Placa</th>
-                        <th>Kilometrake</th>
+                        <th class="hover:bg-info hover:cursor-pointer hover:underline">Vehiculo
+                            <font-awesome-icon
+                                icon="fas fa-sort"
+                                size="xs"
+                                class="ml-1"
+                            />
+                        </th>
+                        <th v-if="isAdmin" class="hover:bg-info hover:cursor-pointer hover:underline">Placa
+                            <font-awesome-icon
+                                icon="fas fa-sort"
+                                size="xs"
+                                class="ml-1"
+                            />
+                        </th>
+                        <th class="hover:bg-info hover:cursor-pointer hover:underline">Kilometrake
+                            <font-awesome-icon
+                                icon="fas fa-sort"
+                                size="xs"
+                                class="ml-1"
+                            />
+                        </th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="justify-center">
-                    <tr v-for="(vehicle, i) in allVehicles" class="text-center">
+                    <tr v-for="(vehicle, i) in paginator.data" class="text-center">
                         <td>
                             {{ i + 1 }}
                         </td>
                         <td>
-                            <div class="flex">
                                 <div
-                                    class="flex flex-col xl:flex-row w-full items-center gap-3"
+                                    class="flex flex-col xl:flex-row w-full items-center gap-2 "
                                 >
-                                    <div class="avatar">
+                                    <div class="avatar ">
                                         <div
                                             class="mask mask-squircle h-25 w-25"
                                         >
@@ -78,8 +98,9 @@ const { isAdmin } = useUserInfo()
                                             </template>
                                         </div>
                                     </div>
+
                                     <div
-                                        class="flex flex-col justify-center w-full"
+                                        class="flex flex-col items-center xl:items-start w-full"
                                     >
                                         <div class="font-bold">
                                             {{ vehicle.Marca }}
@@ -91,7 +112,6 @@ const { isAdmin } = useUserInfo()
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </td>
                         <td v-if="isAdmin">
                             {{ vehicle.Placa }}

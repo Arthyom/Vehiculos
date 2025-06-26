@@ -31,24 +31,36 @@ class VehiculosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $sessionState = session()->all();
-        $allVehicles = Vehiculo::with('imagenes')->get()->each( function ($vehicle)  {
+
+        $per_page = $request->get('per_page') ?? 4;
+
+        $allVehicles = Vehiculo::with('imagenes')
+            ->paginate($per_page)
+        ;
+
+        $allVehicles ->getCollection()->each( function ($vehicle)  {
             $vehicle->imagenes->each( function ($imagen)  {
                 $imagen->Name = asset("files/{$imagen->Name}");
                 return $imagen;
             });
             return $vehicle;
-        } );
+        });
+
+
+
+
         // return View('vehiculos.index',
         // compact('allVehicles', 'sessionState'));
 
 
         return inertia('Vehiculo/ListIndex', [
-            'allVehicles' =>$allVehicles,
-            'sessionState' => $sessionState
+            // 'allVehicles' =>$allVehicles,
+            'sessionState' => $sessionState,
+            'paginator' => $allVehicles
         ]);
     }
 
