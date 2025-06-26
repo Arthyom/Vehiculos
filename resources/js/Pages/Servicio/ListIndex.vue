@@ -42,8 +42,16 @@ const tipoServicioColor = (tipoServicio) =>{
         color += 'accent'
         break;
 
-        default:
+        case 7:
+        color += 'secondary'
+        break;
+
+        case 8:
         color += 'neutral'
+        break;
+
+        default:
+        color += 'color-base-300'
         break;
     }
     return color

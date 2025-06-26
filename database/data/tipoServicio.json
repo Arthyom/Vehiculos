@@ -40,5 +40,19 @@
 		"updated_at" : null,
 		"Descripcion" : "Verificacion",
 		"Codigo" : 6
+	},
+    {
+		"id" : 7,
+		"created_at" : null,
+		"updated_at" : null,
+		"Descripcion" : "Llantas",
+		"Codigo" : 7
+	},
+    {
+		"id" : 8,
+		"created_at" : null,
+		"updated_at" : null,
+		"Descripcion" : "Piezas",
+		"Codigo" : 8
 	}
 ]
