@@ -7,6 +7,7 @@ import { useDefaultCommon } from "../Common/Composables/common-composable";
 import TableWrapper from "../Common/Components/TableWrapper.vue";
 import { usePage } from "@inertiajs/vue3";
 import PaginatorComponent from "../Common/Components/PaginatorComponent.vue";
+import { VehiculosTiposServicio } from "../Constants/Constants";
 
 defineProps({ allServices: Array });
 
@@ -18,35 +19,35 @@ const tipoServicioColor = (tipoServicio) =>{
 
     let color = 'badge-'
     switch (tipoServicio.Codigo) {
-        case 1:
+        case VehiculosTiposServicio.Mecanico:
         color += 'primary'
         break;
 
-        case 2:
+        case VehiculosTiposServicio.Electrico:
         color += 'info'
         break;
 
-        case 3:
+        case VehiculosTiposServicio.Estetico:
         color += 'warning'
         break;
 
-        case 4:
+        case VehiculosTiposServicio.Ludico:
         color += 'success'
         break;
 
-        case 5:
+        case VehiculosTiposServicio.Afinacion:
         color += 'error'
         break;
 
-        case 6:
+        case VehiculosTiposServicio.Verificacion:
         color += 'accent'
         break;
 
-        case 7:
+        case VehiculosTiposServicio.Llantas:
         color += 'secondary'
         break;
 
-        case 8:
+        case VehiculosTiposServicio.Piezas:
         color += 'neutral'
         break;
 
