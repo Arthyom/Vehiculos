@@ -20,13 +20,14 @@
 </template>
 
 <script lang="js" setup>
-import { ref } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 import CustomTemplateForm from '../Common/Components/CustomTemplateForm.vue';
 import DefaultLayout from '../Common/Layouts/DefaultLayout.vue';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import { UseVehiclesConf } from '../Common/Composables/config-fields-composable';
 import { object } from 'yup';
+import { useHttp } from '../Common/Store/http.action';
 
 const props = defineProps({servicio: Object, tipoServicio:Object, vehicles: Object, providers: Object, asCreate: true, asShow: false})
 
@@ -46,9 +47,14 @@ const validationSchema = yup.object({
 })
 
 const {conf} = UseVehiclesConf()
+const uh = useHttp()
 
-console.log('tipos', props.tipoServicio)
 
+const customFunction = async(e) =>{
+    uh.setResource('vehiculos')
+    const vehicle = await uh.getById(e.target.value)
+    Kilometraje.value = vehicle.Kilometraje
+}
 
 const {values,  defineField, meta } =useForm({
     validationSchema,
@@ -58,16 +64,15 @@ const {values,  defineField, meta } =useForm({
 const [Created_At,  Created_AtAttr] = defineField('Created_At',  {props: (state) => conf(state, 'date', 'Fecha')})
 
 
-const [Vehiculo_Id, Vehiculo_IdAttr] = defineField('Vehiculo_Id', {props: (state) => conf(state,  'select', 'Vehiculo', props.vehicles)})
+const [Vehiculo_Id, Vehiculo_IdAttr] = defineField('Vehiculo_Id', {props: (state) => conf(state,  'select', 'Vehiculo', props.vehicles, true, true, customFunction)})
 const [Proveedor_Id,  Proveedor_IdAttr] = defineField('Proveedor_Id', {props: (state) => conf(state,  'select', 'Proveedor', props.providers)})
-const [Kilometraje, KilometrajeAttr] = defineField('Kilometraje', {props: (state) => conf(state, 'number')})
+const [Kilometraje, KilometrajeAttr] = defineField('Kilometraje', {props: (state) => conf(state, 'number',null, [], true,true,null)})
 const [Descripcion, DescripcionAttr] = defineField('Descripcion', {props: (state => conf(state))})
 const [Total, TotalAttr] = defineField('Total', {props: (state) => conf( state, 'number')})
 const [Pagado, PagadoAttr] = defineField('Pagado', {props: (state) => conf( state, 'checkbox',null,[],false)})
 const [Subsidiado, SubsidiadoAttr] = defineField('Subsidiado', {props: (state) => conf(state, 'checkbox',null,[],false)})
 const [Detalles, DetallesAttr] = defineField('Detalles', {props: (state => conf(state,'text-area',null,[],false))})
 const [TipoServicio_Id, TipoServicio_IdAttr] = defineField('TipoServicio_Id', {props: (state) => conf(state,  'select', 'Tipo Servicio', props.tipoServicio)})
-
 
 
 

@@ -6,7 +6,8 @@ export const UseVehiclesConf = () =>{
         label = null,
         additionalData = [],
         isRequired = true,
-        isVisible = true
+        isVisible = true,
+        fun = null
       ) =>
 
         ({
@@ -15,7 +16,8 @@ export const UseVehiclesConf = () =>{
             typeInput,
             additionalData : [ ...additionalData],
             isRequired,
-            isVisible
+            isVisible,
+            fun
         })
 
     return {

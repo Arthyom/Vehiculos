@@ -1,6 +1,7 @@
 <script lang="js" setup>
 
 
+
 const props = defineProps({
     error:String,
     typeInput:'text',
@@ -8,7 +9,8 @@ const props = defineProps({
     label: String,
     isRequired: Boolean,
     isVisible: Boolean,
-    additionalData: Array
+    additionalData: Array,
+    fun: Object
 })
 
 const emit = defineEmits(['update:modelValue', 'blur']);
@@ -67,6 +69,7 @@ const formatData = (val) =>{
                 class="select w-full"
                 @input="$emit('update:modelValue', $event.target.value)"
                 @blur="$emit('blur')"
+                @change="(e)=> fun(e)"
                 :value="modelValue"
             >
                 <option selected>Seleccione uno</option>
