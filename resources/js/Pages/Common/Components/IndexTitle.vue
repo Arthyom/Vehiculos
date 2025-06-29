@@ -12,7 +12,10 @@ const props = defineProps({
     asIndex: false,
     asCreate : false,
     asShow: false,
-    asEdit : false
+    asEdit : false,
+    detailsTitle: String,
+    aliasTitle: String
+
 })
 
 const title = ref()
@@ -30,17 +33,34 @@ const {isAdmin} = useUserInfo()
 </script>
 
 <template>
-    <div class="flex flex-row  card-title text-info text-3xl md:text-4xl mb-2 pb-2">
-
+    <div
+        class="flex flex-row card-title text-info text-3xl md:text-4xl  mb-1"
+    >
         <div class="flex-none">
             {{ title }}
         </div>
+
         <div class="flex flex-1 justify-end">
-            <span v-if="useButton && isAdmin">
-                <Link :href="`/${link}/${to}`" class="btn btn-sm btn-circle btn-info text-white">
+            <span v-if="useButton && isAdmin" class="flex flex-col ">
+                <Link
+                    :href="`/${link}/${to}`"
+                    class="btn btn-sm btn-circle btn-info text-white"
+                >
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                 </Link>
             </span>
         </div>
     </div>
+    <hr/>
+    <template v-if="detailsTitle && aliasTitle">
+        <div class="flex flex-col  py-2">
+            <div class="card-title text-neutral text-xl">
+                {{ detailsTitle }}
+            </div>
+            <div class="card-title font-normal text-lg">
+                {{ aliasTitle }}
+            </div>
+        </div>
+        <hr/>
+    </template>
 </template>

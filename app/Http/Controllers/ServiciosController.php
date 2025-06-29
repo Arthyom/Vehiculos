@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TipoServicio;
+use Inertia\Inertia;
 use Session;
 use ErrorException;
 use App\Models\Servicio;
@@ -78,6 +79,23 @@ class ServiciosController extends Controller
             'tipoServicio' => $allServiceTypes,
             'asCreate' => true
         ]);
+    }
+
+    /**
+     * Show paginated list of vehicle's services
+     */
+    public function services(Vehiculo $vehiculo, Request $request)  {
+        try {
+            $pp = $request->get('per_page') ?? 4;
+            $paginator = $this->servicioProvider->paginateByVehiculo($vehiculo->id, $pp);
+
+            return Inertia::render('Servicio/ByVehicle',[
+                'paginator' => $paginator,
+                'vehicle' => $vehiculo
+            ]);
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**

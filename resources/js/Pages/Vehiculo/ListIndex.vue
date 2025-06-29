@@ -124,7 +124,7 @@ const { isAdmin } = useUserInfo()
                                 <div class="sm:tooltip" data-tip="Servicios">
                                     <Link
                                         class="btn btn-primary btn-xs"
-                                        :href="`/${to}/${props?.item?.id}`"
+                                        :href="`/servicios/vehiculo/${vehicle.id}`"
                                     >
                                         <font-awesome-icon
                                             icon="fa-solid fa-tools"

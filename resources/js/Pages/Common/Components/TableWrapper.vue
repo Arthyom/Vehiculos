@@ -13,7 +13,7 @@ const gs = useGeneralStore();
     <CustomLoader :showDialog="gs.showLoader"></CustomLoader>
 
     <template v-if="!!paginator">
-        <PaginatorComponent :paginator="paginator"></PaginatorComponent>
+        <PaginatorComponent class="mt-4" :paginator="paginator"></PaginatorComponent>
     </template>
 
     <div

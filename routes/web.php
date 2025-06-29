@@ -43,7 +43,9 @@ Route::resource( 'servicios' , ServiciosController::class)
     );
 
 
-
+Route::middleware(['auth'])->group( function (){
+    Route::get('servicios/vehiculo/{vehiculo}', [ServiciosController::class, 'services']);
+});
 
 
 

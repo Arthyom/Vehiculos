@@ -85,6 +85,13 @@ class ServicioProvider extends ServiceProvider
         // ->get();
      }
 
+    public function paginateByVehiculo (int $vehicleId, int $perPage = 4){
+        return Servicio::where('Vehiculo_Id', $vehicleId)
+            ->with(['vehiculo', 'proveedor', 'vehiculo.imagenes', 'tipo_servicio' ])
+            ->paginate($perPage)
+            ;
+    }
+
     private function insertNota(Request $request) : Nota | null{
         if( $request->Imagen){
             if($request->Imagen[0]){
