@@ -49,6 +49,7 @@ class ServicioProvider extends ServiceProvider
             $newServicio->Nota_Id = $nota->id;
 
         $vehiculo->Kilometraje = $newServicio->Kilometraje;
+
         $newServicio->save();
         $vehiculo->save();
 
